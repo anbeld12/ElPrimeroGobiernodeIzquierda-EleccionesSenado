@@ -21,7 +21,6 @@ export function ColapsoSection() {
         <div>
           <SankeyFlow />
         </div>
-
         <div>
           <ThresholdBars />
           <ComparisonBars />

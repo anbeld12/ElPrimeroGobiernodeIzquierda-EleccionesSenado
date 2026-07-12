@@ -48,18 +48,6 @@ export function BarrasIzquierda() {
 
   return (
     <div style={{ userSelect: "none" }}>
-      <p
-        style={{
-          fontFamily: "Roboto Mono, monospace",
-          fontSize: 9,
-          letterSpacing: "0.12em",
-          textTransform: "uppercase",
-          color: C.slate,
-          marginBottom: 16,
-        }}
-      >
-        Voto de izquierda por departamento — Senado 2026
-      </p>
       <div style={{ display: "flex", gap: 16, marginBottom: 12 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 10, color: C.slate }}>
           <span style={{ width: 10, height: 10, backgroundColor: C.ph, borderRadius: 1, flexShrink: 0 }} />
@@ -70,25 +58,26 @@ export function BarrasIzquierda() {
           Otra izquierda
         </div>
       </div>
-      <ResponsiveContainer width="100%" height={600}>
-        <BarChart
-          data={data}
-          layout="vertical"
-          margin={{ top: 0, right: 12, bottom: 0, left: isMobile ? 50 : 100 }}
-          onClick={(e) => {
-            if (e?.activePayload?.[0]) {
-              const depto = e.activePayload[0].payload.depto;
-              setSelectedDepto(depto === selectedDepto ? null : depto);
-            }
-          }}
-        >
-          <XAxis type="number" tick={{ fontSize: 9, fontFamily: "Roboto Mono, monospace", fill: C.slate }} />
-          <YAxis
-            type="category"
-            dataKey="depto"
-            tick={{ fontSize: 9, fontFamily: "Inter, sans-serif", fill: C.slate }}
-            width={isMobile ? 80 : 110}
-          />
+      <div className={isMobile ? "overflow-x-auto scroll-x -mx-1 px-1" : ""}>
+        <ResponsiveContainer width={isMobile ? 500 : "100%"} height={isMobile ? 450 : 600}>
+          <BarChart
+            data={data}
+            layout="vertical"
+            margin={{ top: 0, right: isMobile ? 12 : 12, bottom: 0, left: isMobile ? 16 : 100 }}
+            onClick={(e) => {
+              if (e?.activePayload?.[0]) {
+                const depto = e.activePayload[0].payload.depto;
+                setSelectedDepto(depto === selectedDepto ? null : depto);
+              }
+            }}
+          >
+            <XAxis type="number" tick={{ fontSize: 9, fontFamily: "Roboto Mono, monospace", fill: C.slate }} />
+            <YAxis
+              type="category"
+              dataKey="depto"
+              tick={{ fontSize: 9, fontFamily: "Inter, sans-serif", fill: C.slate }}
+              width={isMobile ? 85 : 110}
+            />
           <Tooltip content={<CustomTooltip />} />
           <Bar dataKey="ph" fill={C.ph} stackId="a" minPointSize={2}>
             {data.map((entry) => (
@@ -110,6 +99,7 @@ export function BarrasIzquierda() {
           </Bar>
         </BarChart>
       </ResponsiveContainer>
+      </div>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { useMemo, useState, useCallback, lazy, Suspense } from "react";
+import { useIsMobile } from "../ui/use-mobile";
 import { C } from "../../constants";
 import { useMunicipiosData } from "../../../context/MunicipiosContext";
 import { useFilters } from "../../../context/FilterContext";
@@ -39,7 +40,6 @@ interface Point {
 
 interface RegionStats {
   count: number;
-  meanX: number;
   meanY: number;
   medianY: number;
 }
@@ -61,6 +61,7 @@ export function PactoScatter() {
 
   const { features } = useMunicipiosData();
   const { selectedDepto, setSelectedDepto } = useFilters();
+  const isMobile = useIsMobile();
 
   const allPoints: Point[] = useMemo(() => {
     const raw: Point[] = features
@@ -97,12 +98,10 @@ export function PactoScatter() {
     REGION_ORDER.forEach((r) => {
       const pts = allPoints.filter((p) => p.region === r);
       if (!pts.length) return;
-      const meanX = pts.reduce((s, p) => s + p.x, 0) / pts.length;
       const meanY = pts.reduce((s, p) => s + p.y, 0) / pts.length;
       const sY = [...pts].sort((a, b) => a.y - b.y);
       map[r] = {
         count: pts.length,
-        meanX,
         meanY,
         medianY: sY[Math.floor(sY.length / 2)].y,
       };
@@ -260,7 +259,7 @@ export function PactoScatter() {
       xaxis: {
         title: {
           text: "% Pacto Histórico 2022",
-          font: { size: 9, family: "Inter, sans-serif", color: "#334155" },
+          font: { size: isMobile ? 8 : 9, family: "Inter, sans-serif", color: "#334155" },
         },
         range: [0, 80] as [number, number],
         tickvals: [0, 20, 40, 60, 80],
@@ -269,7 +268,7 @@ export function PactoScatter() {
         linecolor: "#E2E8F0",
         zeroline: false,
         tickfont: {
-          size: 9,
+          size: isMobile ? 7 : 9,
           family: "Roboto Mono, monospace",
           color: "#334155",
         },
@@ -278,7 +277,7 @@ export function PactoScatter() {
       yaxis: {
         title: {
           text: "% Pacto Histórico 2026",
-          font: { size: 9, family: "Inter, sans-serif", color: "#334155" },
+          font: { size: isMobile ? 8 : 9, family: "Inter, sans-serif", color: "#334155" },
         },
         range: [0, 80] as [number, number],
         tickvals: [0, 20, 40, 60, 80],
@@ -287,14 +286,16 @@ export function PactoScatter() {
         linecolor: "#E2E8F0",
         zeroline: false,
         tickfont: {
-          size: 9,
+          size: isMobile ? 7 : 9,
           family: "Roboto Mono, monospace",
           color: "#334155",
         },
         automargin: true,
       },
       autosize: true,
-      margin: { t: 8, r: 12, b: 36, l: 48 },
+      margin: isMobile
+        ? { t: 8, r: 8, b: 40, l: 40 }
+        : { t: 8, r: 12, b: 36, l: 48 },
       paper_bgcolor: "#FAF9F6",
       plot_bgcolor: "#FAF9F6",
       hovermode: "closest",
@@ -305,7 +306,7 @@ export function PactoScatter() {
       },
       dragmode: false as const,
     }),
-    []
+    [isMobile]
   );
 
   function handleClick(data: any) {
@@ -317,9 +318,9 @@ export function PactoScatter() {
 
   return (
     <div className="select-none">
-      <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
-        <p className="font-mono text-[9px] tracking-[0.12em] uppercase text-slate">
-          Correlación municipal del voto PH — 2022 vs 2026
+      <div className={`flex items-center justify-between mb-3 flex-wrap ${isMobile ? "gap-1" : "gap-2"}`}>
+        <p className={`font-mono tracking-[0.12em] uppercase text-slate ${isMobile ? "text-[8px]" : "text-[9px]"}`}>
+          Correlación municipal del voto PH &mdash; 2022 vs 2026
         </p>
         <div className="flex gap-1" role="tablist">
           {(["region", "correlacion"] as const).map((m) => (
@@ -328,7 +329,11 @@ export function PactoScatter() {
               role="tab"
               aria-selected={mode === m}
               onClick={() => setMode(m)}
-              className={`font-mono text-[9px] tracking-[0.1em] uppercase px-3 py-1.5 border cursor-pointer transition-all duration-150 ${
+              className={`font-mono tracking-[0.1em] uppercase border cursor-pointer transition-all duration-150 ${
+                isMobile
+                  ? "text-[8px] px-2 py-1"
+                  : "text-[9px] px-3 py-1.5"
+              } ${
                 mode === m
                   ? "bg-ink text-ivory border-ink"
                   : "bg-transparent text-slate border-border-default hover:border-slate"
@@ -340,7 +345,7 @@ export function PactoScatter() {
         </div>
       </div>
 
-      <div className="flex items-center gap-2 mb-3 flex-wrap">
+      <div className={`flex items-center mb-3 flex-wrap ${isMobile ? "gap-1" : "gap-2"}`}>
         <span className="font-mono text-[8px] tracking-[0.1em] uppercase text-slate/60">
           PH 2026 ≥
         </span>
@@ -348,7 +353,9 @@ export function PactoScatter() {
           <button
             key={v}
             onClick={() => setThreshold(v)}
-            className={`font-mono text-[9px] px-2 py-1 border cursor-pointer transition-all duration-150 ${
+            className={`font-mono border cursor-pointer transition-all duration-150 ${
+              isMobile ? "text-[8px] px-1.5 py-0.5" : "text-[9px] px-2 py-1"
+            } ${
               threshold === v
                 ? "bg-ink text-ivory border-ink"
                 : "bg-transparent text-slate border-border-default hover:border-slate"
@@ -357,75 +364,77 @@ export function PactoScatter() {
             {v === 0 ? "Todo" : `>${v}%`}
           </button>
         ))}
-        <span className="text-[9px] text-slate/50 font-mono ml-auto">
+        <span className={`font-mono text-slate/50 ml-auto ${isMobile ? "text-[8px]" : "text-[9px]"}`}>
           {visiblePoints.length} / {allPoints.length} municipios
         </span>
       </div>
 
       <div className="flex items-start justify-between gap-2 mb-3">
-        <div className="flex flex-wrap gap-x-4 gap-y-1.5">
-          {REGION_ORDER.map((r) => {
-            const isHidden = hiddenRegions.has(r);
-            const isCompSelected = compRegions.includes(r);
-            const stats = regionStats[r];
-            if (!stats) return null;
-            return (
-              <span
-                key={r}
-                className="relative flex items-center gap-1.5 text-[10px] cursor-pointer select-none"
-                onClick={() =>
-                  comparison ? toggleCompRegion(r) : toggleRegion(r)
-                }
-                onMouseEnter={() => setLegendTooltipRegion(r)}
-                onMouseLeave={() => setLegendTooltipRegion(null)}
-                style={{
-                  opacity: isHidden ? 0.35 : 1,
-                  textDecoration: isHidden ? "line-through" : "none",
-                }}
-              >
+        <div className={`${isMobile ? "overflow-x-auto -mx-1 px-1 max-w-full scroll-x" : ""}`}>
+          <div className={`flex items-center ${isMobile ? "gap-x-2 gap-y-0.5" : "flex-wrap gap-x-4 gap-y-1.5"}`}>
+            {REGION_ORDER.map((r) => {
+              const isHidden = hiddenRegions.has(r);
+              const isCompSelected = compRegions.includes(r);
+              const stats = regionStats[r];
+              if (!stats) return null;
+              return (
                 <span
-                  className="w-2.5 h-2.5 rounded-sm shrink-0"
+                  key={r}
+                  className={`relative flex items-center cursor-pointer select-none ${isMobile ? "gap-1 text-[9px] whitespace-nowrap" : "gap-1.5 text-[10px]"}`}
+                  onClick={() =>
+                    comparison ? toggleCompRegion(r) : toggleRegion(r)
+                  }
+                  onMouseEnter={() => setLegendTooltipRegion(r)}
+                  onMouseLeave={() => setLegendTooltipRegion(null)}
                   style={{
-                    backgroundColor: REGION_COLORS[r],
-                    outline:
-                      comparison && isCompSelected
-                        ? `2px solid ${C.ink}`
-                        : "none",
-                    outlineOffset: 1,
+                    opacity: isHidden ? 0.35 : 1,
+                    textDecoration: isHidden ? "line-through" : "none",
                   }}
-                />
-                {r}
-                <span className="text-[8px] text-slate/40 font-mono">
-                  {stats.count}
-                </span>
-                {legendTooltipRegion === r && (
-                  <div
+                >
+                  <span
+                    className="w-2.5 h-2.5 rounded-sm shrink-0"
                     style={{
-                      position: "absolute",
-                      top: "100%",
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                      marginTop: 4,
-                      background: C.white,
-                      border: `1px solid ${C.border}`,
-                      padding: "6px 10px",
-                      fontFamily: "Roboto Mono, monospace",
-                      fontSize: 9,
-                      boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-                      pointerEvents: "none",
-                      zIndex: 10,
-                      whiteSpace: "nowrap",
+                      backgroundColor: REGION_COLORS[r],
+                      outline:
+                        comparison && isCompSelected
+                          ? `2px solid ${C.ink}`
+                          : "none",
+                      outlineOffset: 1,
                     }}
-                  >
-                    <p style={{ color: C.slate }}>
-                      Media: {fmtPct(stats.meanY)} · Mediana:{" "}
-                      {fmtPct(stats.medianY)}
-                    </p>
-                  </div>
-                )}
-              </span>
-            );
-          })}
+                  />
+                  {r}
+                  <span className={`font-mono text-slate/40 ${isMobile ? "text-[7px]" : "text-[8px]"}`}>
+                    {stats.count}
+                  </span>
+                  {!isMobile && legendTooltipRegion === r && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "100%",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        marginTop: 4,
+                        background: C.white,
+                        border: `1px solid ${C.border}`,
+                        padding: "6px 10px",
+                        fontFamily: "Roboto Mono, monospace",
+                        fontSize: 9,
+                        boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+                        pointerEvents: "none",
+                        zIndex: 10,
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      <p style={{ color: C.slate }}>
+                        Media: {fmtPct(stats.meanY)} · Mediana:{" "}
+                        {fmtPct(stats.medianY)}
+                      </p>
+                    </div>
+                  )}
+                </span>
+              );
+            })}
+          </div>
         </div>
 
         <button
@@ -433,7 +442,9 @@ export function PactoScatter() {
             setComparison(!comparison);
             if (!comparison) setCompRegions([]);
           }}
-          className={`font-mono text-[8px] tracking-[0.1em] uppercase px-2 py-1 border cursor-pointer shrink-0 transition-all duration-150 ${
+          className={`font-mono tracking-[0.1em] uppercase border cursor-pointer shrink-0 transition-all duration-150 ${
+            isMobile ? "text-[7px] px-1.5 py-0.5" : "text-[8px] px-2 py-1"
+          } ${
             comparison
               ? "bg-ph text-white border-ph"
               : "bg-transparent text-slate border-border-default hover:border-slate"
@@ -444,7 +455,7 @@ export function PactoScatter() {
       </div>
 
       {comparison && compRegions.length === 2 && compLines && (
-        <div className="flex gap-4 mb-3 p-2.5 border border-border-default rounded-sm bg-soft/50 text-[10px] font-mono">
+        <div className={`mb-3 p-2.5 border border-border-default rounded-sm bg-soft/50 font-mono ${isMobile ? "flex-col gap-2 text-[9px]" : "flex gap-4 text-[10px]"}`}>
           {compRegions.map((r) => {
             const d = compLines[r];
             if (!d) return null;
@@ -464,7 +475,7 @@ export function PactoScatter() {
       )}
 
       {mode === "correlacion" && !comparison && (
-        <div className="flex items-center gap-5 mb-3 text-[10px] text-slate font-mono">
+        <div className={`flex items-center mb-3 text-slate font-mono ${isMobile ? "gap-3 text-[9px] flex-wrap" : "gap-5 text-[10px]"}`}>
           <span>
             Pendiente:{" "}
             <strong className="text-ink">{trend.slope.toFixed(3)}</strong>
@@ -479,7 +490,7 @@ export function PactoScatter() {
         </div>
       )}
 
-      <div className="h-[340px] w-full">
+      <div className={`w-full ${isMobile ? "h-[260px]" : "h-[340px]"}`}>
         <Suspense
           fallback={
             <div className="h-full flex items-center justify-center text-[11px] text-slate font-mono">

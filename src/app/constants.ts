@@ -10,6 +10,8 @@ export const C = {
   salvacion: "#C2410C",
   indigenas: "#065F46",
   oposicion: "#374151",
+  citrep: "#6EE7B7",
+  minorias: "#94A3B8",
   ink: "#0F172A",
   slate: "#334155",
   ivory: "#FAF9F6",

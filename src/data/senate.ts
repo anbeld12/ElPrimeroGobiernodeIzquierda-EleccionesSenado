@@ -15,14 +15,25 @@ export const SENATE = [
 ];
 
 export const CAMARA = [
-  { party: "Pacto Histórico", seats: 37, color: C.ph, areas: "Bogotá (8), Valle del Cauca (6), Cundinamarca (3)" },
-  { party: "Partido Liberal", seats: 25, color: C.liberal, areas: "Antioquia (2), Atlántico (2), Amazonas (1)" },
-  { party: "Centro Democrático", seats: 25, color: C.cd, areas: "Antioquia (7), Bogotá (7), Cundinamarca (1)" },
-  { party: "Partido Conservador", seats: 19, color: C.conservador, areas: "Bolívar (3), Tolima (3), Caldas (1)" },
-  { party: "Partido de la U", seats: 12, color: C.laU, areas: "Valle del Cauca (2), Guainía (1), Vichada (1)" },
-  { party: "Cambio Radical – ALMA", seats: 12, color: C.cambio, areas: "Atlántico (3), Arauca (1), Magdalena (1)" },
-  { party: "CITREP (Paz)", seats: 16, color: "#6EE7B7", areas: "Zonas rurales y priorizadas" },
-  { party: "Otros / Minorías", seats: 27, color: "#94A3B8", areas: "Afrodescendientes, raizales, indígenas" },
+  { party: "Pacto Histórico", votes: 4255774, pct: "22.43%", seats: 37, color: C.ph, areas: "Bogotá (8), Valle del Cauca (6), Cundinamarca (3)" },
+  { party: "Centro Democrático", votes: 3089213, pct: "16.28%", seats: 25, color: C.cd, areas: "Antioquia (7), Bogotá (7), Cundinamarca (1)" },
+  { party: "Partido Liberal", votes: 2258940, pct: "11.91%", seats: 25, color: C.liberal, areas: "Antioquia (2), Atlántico (2), Amazonas (1)" },
+  { party: "Partido Conservador", votes: 2038767, pct: "10.74%", seats: 19, color: C.conservador, areas: "Bolívar (3), Tolima (3), Caldas (1)" },
+  { party: "Partido de la U", votes: 1319140, pct: "6.95%", seats: 12, color: C.laU, areas: "Valle del Cauca (2), Guainía (1), Vichada (1)" },
+  { party: "Cambio Radical – ALMA", votes: 1183694, pct: "6.24%", seats: 12, color: C.cambio, areas: "Atlántico (3), Arauca (1), Magdalena (1)" },
+  { party: "CITREP (Paz)", votes: 0, pct: "—", seats: 16, color: C.citrep, areas: "Zonas rurales y priorizadas" },
+  { party: "Otros / Minorías", votes: 0, pct: "—", seats: 37, color: C.minorias, areas: "Afrodescendientes, raizales, indígenas, internacional" },
+];
+
+export const CAMARA_SPECTRUM = [
+  { color: C.citrep, seats: 16 },
+  { color: C.minorias, seats: 37 },
+  { color: C.ph, seats: 37 },
+  { color: C.liberal, seats: 25 },
+  { color: C.laU, seats: 12 },
+  { color: C.cambio, seats: 12 },
+  { color: C.conservador, seats: 19 },
+  { color: C.cd, seats: 25 },
 ];
 
 export const SPECTRUM = [

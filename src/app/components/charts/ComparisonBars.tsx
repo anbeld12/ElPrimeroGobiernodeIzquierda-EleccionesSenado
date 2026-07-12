@@ -1,9 +1,6 @@
-import { C } from "../../constants";
-
 const rows = [
   { name: "Frente Amplio Unitario", v22: 580000, v26: 396042 },
   { name: "Fuerza Ciudadana – Comunes", v22: 420000, v26: 114722 },
-  { name: "Comunes (curules paz)", v22: 10, v26: 0 },
 ];
 
 const max = 620000;
