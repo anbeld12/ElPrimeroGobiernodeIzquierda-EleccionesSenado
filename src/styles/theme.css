@@ -117,6 +117,29 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-ph: #6D28D9;
+  --color-cd: #991B1B;
+  --color-liberal: #1E3A8A;
+  --color-alianza: #D97706;
+  --color-conservador: #15803D;
+  --color-lau: #64748B;
+  --color-cambio: #0F766E;
+  --color-ahora: #7C3AED;
+  --color-salvacion: #C2410C;
+  --color-indigenas: #065F46;
+  --color-oposicion: #374151;
+  --color-ink: #0F172A;
+  --color-slate: #334155;
+  --color-ivory: #FAF9F6;
+  --color-border-default: #E2E8F0;
+  --color-dark: #1E293B;
+  --color-soft: #F1F5F9;
+  --color-white: #FFFFFF;
+
+  --font-editorial: "Playfair Display", Georgia, serif;
+  --font-sans: Inter, sans-serif;
+  --font-mono: "Roboto Mono", monospace;
 }
 
 @layer base {

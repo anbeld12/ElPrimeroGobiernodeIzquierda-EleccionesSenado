@@ -1,0 +1,95 @@
+/* Responsive utilities — safe areas, breakpoint helpers, scroll behavior */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Safe area insets for mobile notched devices */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Scroll container for horizontal overflow on mobile */
+.scroll-x {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+/* Section container — max-width + responsive padding */
+.section-container {
+  width: 100%;
+  max-width: 90rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .section-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .section-container {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-container {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+}
+
+/* Tables: horizontal scroll on mobile */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Focus visible style for accessibility */
+:focus-visible {
+  outline: 2px solid #6D28D9;
+  outline-offset: 2px;
+}
+
+/* Skip to content — hidden until focused */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: #0F172A;
+  color: #FAF9F6;
+  font-size: 0.875rem;
+  font-family: Inter, sans-serif;
+  transition: top 0.15s;
+}
+
+.skip-link:focus {
+  top: 0;
+}

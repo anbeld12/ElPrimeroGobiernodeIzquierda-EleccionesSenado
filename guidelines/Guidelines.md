@@ -1,61 +1,83 @@
-**Add your own guidelines here**
-<!--
+# Design Guidelines — El Primer Gobierno de Izquierda
 
-System Guidelines
+## Tech Stack
+- React 19 + TypeScript + Vite
+- Tailwind CSS 4 (`@import 'tailwindcss'` with `@theme inline` tokens)
+- shadcn/ui components (Radix primitives)
+- Recharts for charts, Leaflet for maps
+- next-themes for dark mode
 
-Use this file to provide the AI with rules and guidelines you want it to follow.
-This template outlines a few examples of things you can add. You can add your own sections and format it to suit your needs
+## Responsive Breakpoints
+- **Mobile**: `<768px` — single column, 16px padding
+- **Tablet**: `≥768px` (md:) — 2-column grids, 32px padding
+- **Desktop**: `≥1024px` (lg:) — multi-column, 80px padding
+- Container max-width: 90rem (1440px)
 
-TIP: More context isn't always better. It can confuse the LLM. Try and add the most important rules you need
+## Color Tokens (Tailwind)
+All colors in `constants.ts` (`C.ph`, `C.ink`, etc.) are mapped in `theme.css` under `@theme inline`:
+```
+bg-ivory text-ink border-border-default bg-ph text-slate bg-soft bg-dark
+```
+Party colors are fixed and do NOT change in dark mode.
 
-# General guidelines
+## Typography
+- **Editorial/Display**: Playfair Display (`font-editorial`)
+- **Body/UI**: Inter (`font-sans` — default)
+- **Data/Mono**: Roboto Mono (`font-mono`)
+- Headings: `font-editorial text-xl md:text-[26px] font-medium`
+- Data values: `font-mono text-2xl md:text-[32px] font-semibold`
+- Labels/meta: `font-mono text-[10px] tracking-[0.12em] uppercase`
 
-Any general rules you want the AI to follow.
-For example:
+## Anatomy of a Section
+```tsx
+<section id="name" className="section-container py-10 md:py-16">
+  <SectionNum n="§ 0X" />
+  <h2 className="font-editorial text-xl md:text-[26px] ...">Title</h2>
+  <p className="pl-0 md:pl-12 ...">Subtitle</p>
+  <div className="pl-0 md:pl-12 grid grid-cols-1 lg:grid-cols-[...]">
+    ...
+  </div>
+</section>
+```
 
-* Only use absolute positioning when necessary. Opt for responsive and well structured layouts that use flexbox and grid by default
-* Refactor code as you go to keep code clean
-* Keep file sizes small and put helper functions and components in their own files.
+## Scrolling
+- All sections have `id` attributes for smooth scroll navigation
+- `Reveal` component wraps sections for IntersectionObserver-based fade-in
+- `<html class="scroll-smooth">`
 
---------------
+## Accessibility
+- Skip-to-content link in `index.html`
+- `role="tablist"`, `role="tab"`, `role="tabpanel"` on tab interfaces
+- `scope="col"` on table headers
+- `aria-label` on navigation and interactive controls
+- Focus-visible rings: 2px solid #6D28D9
 
-# Design system guidelines
-Rules for how the AI should make generations look like your company's design system
+## Hover/Interactive States
+- Cards: `hover:shadow-sm transition-shadow`
+- Interactive table rows: `hover:opacity-80 cursor-pointer transition-all`
+- Buttons/controls: `transition-all duration-150`
+- Map panel: `hover:text-ink transition-colors`
 
-Additionally, if you select a design system to use in the prompt box, you can reference
-your design system's components, tokens, variables and components.
-For example:
+## Data Management
+- `MunicipiosContext` — single shared instance of `useMunicipios()` hook, provided at app level via `MunicipiosProvider`
+- Consumed via `useMunicipiosData()` in `MapaTerritorial`, `BarrasIzquierda`, `LorenzCurve`
+- GeoJSON (~2.3MB) parsed once; all derived computations (Gini, Lorenz, aggregates) cached with `useMemo`
 
-* Use a base font-size of 14px
-* Date formats should always be in the format “Jun 10”
-* The bottom toolbar should only ever have a maximum of 4 items
-* Never use the floating action button with the bottom toolbar
-* Chips should always come in sets of 3 or more
-* Don't use a dropdown if there are 2 or fewer options
+## Security
+- All Leaflet tooltip HTML is sanitized via `DOMPurify.sanitize()` before `bindTooltip()`
+- Data comes from static `municipios.json` bundled at build time (low supply-chain risk)
 
-You can also create sub sections and add more specific details
-For example:
+## Responsive Chart Patterns
+- **SVG charts** (SenateSemicircle, SankeyFlow): use `viewBox` + `w-full max-w-full md:max-w-[...]`
+- **Recharts**: use `<ResponsiveContainer width="100%" height={...}>`
+- **Custom div-based charts** (GiniTable, ThresholdBars, ComparisonBars, ParticipationBars): convert outer containers to Tailwind, wrap tables in `.table-responsive`, use `min-w-[...]` on content and `w-auto min-w-[...]` on labels
+- Avoid fixed pixel widths on labels in mobile layouts; prefer `w-auto min-w-[3rem] shrink-0`
 
+## Memory Management
+- Async effects: always use `cancelled` flag pattern for cleanup
+- IntersectionObserver: always `disconnect()` in effect return
+- Leaflet event listeners cleaned up automatically on GeoJSON layer removal
 
-## Button
-The Button component is a fundamental interactive element in our design system, designed to trigger actions or navigate
-users through the application. It provides visual feedback and clear affordances to enhance user experience.
-
-### Usage
-Buttons should be used for important actions that users need to take, such as form submissions, confirming choices,
-or initiating processes. They communicate interactivity and should have clear, action-oriented labels.
-
-### Variants
-* Primary Button
-  * Purpose : Used for the main action in a section or page
-  * Visual Style : Bold, filled with the primary brand color
-  * Usage : One primary button per section to guide users toward the most important action
-* Secondary Button
-  * Purpose : Used for alternative or supporting actions
-  * Visual Style : Outlined with the primary color, transparent background
-  * Usage : Can appear alongside a primary button for less important actions
-* Tertiary Button
-  * Purpose : Used for the least important actions
-  * Visual Style : Text-only with no border, using primary color
-  * Usage : For actions that should be available but not emphasized
--->
+## Reduced Motion
+Respected globally via `prefers-reduced-motion: reduce` in `responsive.css`.
+All animations disabled when user prefers reduced motion.
