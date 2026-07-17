@@ -30,6 +30,8 @@ export interface DeptAgg {
   depto: string;
   ph: number;
   fa: number;
+  fc: number;
+  totalVotos: number;
 }
 
 export interface LorenzPoint {
@@ -94,46 +96,58 @@ export function useMunicipios() {
     return max;
   }, [features]);
 
+  function parseIzqDet(det: string, votos: number): { fa: number; fc: number } {
+    const faMatch = det.match(/Frente Amplio\s+([\d,]+)%/);
+    const fcMatch = det.match(/Fuerza Ciudadana\s+([\d,]+)%/);
+    const faPct = faMatch ? parseFloat(faMatch[1].replace(',', '.')) : 0;
+    const fcPct = fcMatch ? parseFloat(fcMatch[1].replace(',', '.')) : 0;
+    return {
+      fa: Math.round((faPct / 100) * votos),
+      fc: Math.round((fcPct / 100) * votos),
+    };
+  }
+
   const aggregateByDept = useMemo((): DeptAgg[] => {
     const depts: Record<string, DeptAgg> = {};
     features.forEach((f) => {
       const p = f.properties;
       if (!depts[p.departamento]) {
-        depts[p.departamento] = { depto: p.departamento, ph: 0, fa: 0 };
+        depts[p.departamento] = { depto: p.departamento, ph: 0, fa: 0, fc: 0, totalVotos: 0 };
       }
-      depts[p.departamento].ph += p.pacto_2026 || 0;
-      const totalLeft = ((p.izq_tot_2026 || 0) / 100) * (p.votos_2026 || 0);
-      depts[p.departamento].fa += Math.round(Math.max(0, totalLeft - (p.pacto_2026 || 0)));
+      const d = depts[p.departamento];
+      d.ph += p.pacto_2026 || 0;
+      d.totalVotos += p.votos_2026 || 0;
+      if (p.izq_det_2026) {
+        const parsed = parseIzqDet(p.izq_det_2026, p.votos_2026 || 0);
+        d.fa += parsed.fa;
+        d.fc += parsed.fc;
+      } else {
+        const totalLeft = ((p.izq_tot_2026 || 0) / 100) * (p.votos_2026 || 0);
+        d.fa += Math.round(Math.max(0, totalLeft - (p.pacto_2026 || 0)));
+      }
     });
     return Object.values(depts).sort((a, b) => b.ph - a.ph);
   }, [features]);
 
-  const computeLorenz = useMemo((): LorenzPoint[] => {
-    const vals = features
-      .filter((f) => (f.properties.pct_pacto_2026 || 0) > 0)
-      .map((f) => f.properties.pacto_2026 || 0)
-      .sort((a, b) => a - b);
-
-    const totalPH = vals.reduce((s, v) => s + v, 0);
+  function buildLorenz(vals: number[]): LorenzPoint[] {
+    const total = vals.reduce((s, v) => s + v, 0);
     const n = vals.length;
-    if (n === 0 || totalPH === 0) return [];
-
+    if (n === 0 || total === 0) return [];
     const points: LorenzPoint[] = [];
-    let cumPH = 0;
+    let cum = 0;
     for (let i = 0; i <= n; i++) {
       const popPct = i / n;
-      if (i > 0) cumPH += vals[i - 1];
+      if (i > 0) cum += vals[i - 1];
       points.push({
         pct: Math.round(popPct * 100),
         equidad: parseFloat(popPct.toFixed(4)),
-        concentracion: totalPH > 0 ? parseFloat((cumPH / totalPH).toFixed(4)) : 0,
+        concentracion: total > 0 ? parseFloat((cum / total).toFixed(4)) : 0,
       });
     }
     return points;
-  }, [features]);
+  }
 
-  const actualGini = useMemo((): number => {
-    const points = computeLorenz;
+  function calcGini(points: LorenzPoint[]): number {
     if (points.length < 2) return 0;
     let area = 0;
     for (let i = 1; i < points.length; i++) {
@@ -144,7 +158,26 @@ export function useMunicipios() {
       area += (x1 - x0) * (y0 + y1) / 2;
     }
     return parseFloat((1 - 2 * area).toFixed(4));
-  }, [computeLorenz]);
+  }
+
+  const computeLorenz = useMemo((): LorenzPoint[] => {
+    const vals = features
+      .filter((f) => (f.properties.pct_pacto_2026 || 0) > 0)
+      .map((f) => f.properties.pacto_2026 || 0)
+      .sort((a, b) => a - b);
+    return buildLorenz(vals);
+  }, [features]);
+
+  const computeLorenz2022 = useMemo((): LorenzPoint[] => {
+    const vals = features
+      .filter((f) => (f.properties.pct_pacto_2022 || 0) > 0)
+      .map((f) => f.properties.pacto_2022 || 0)
+      .sort((a, b) => a - b);
+    return buildLorenz(vals);
+  }, [features]);
+
+  const actualGini = useMemo(() => calcGini(computeLorenz), [computeLorenz]);
+  const gini2022 = useMemo(() => calcGini(computeLorenz2022), [computeLorenz2022]);
 
   const getBoundsForDept = useCallback(
     (depto: string): [[number, number], [number, number]] | null => {
@@ -178,7 +211,9 @@ export function useMunicipios() {
     maxVotes,
     aggregateByDept,
     computeLorenz,
+    computeLorenz2022,
     actualGini,
+    gini2022,
     getBoundsForDept,
   };
 }

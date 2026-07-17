@@ -20,10 +20,10 @@ export function MovilizacionSection() {
       <div className="pl-0 md:pl-12 grid grid-cols-1 lg:grid-cols-[7fr_5fr] gap-8 lg:gap-12">
         <div>
           <p className="font-mono text-[9px] tracking-[0.12em] uppercase text-slate mb-1">
-            Dispersión: Votación de listas alternativas 2022 vs. Variación del Pacto Histórico por departamento
+            Dispersión municipal: % Pacto Histórico 2022 vs. Variación PH 2022→2026
           </p>
           <p className="text-[11px] text-slate mb-1">
-            Eje X: % votos listas alternativas (CE + FC) en 2022 · Eje Y: Variación PH 2022→2026 (pp)
+            Cada punto representa un municipio
           </p>
           <SvgScatter />
         </div>

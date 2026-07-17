@@ -1,4 +1,4 @@
-# UI_STRUCTURE.md
+z# UI_STRUCTURE.md
 ## El Congreso 2026 a Través de los Datos
 **Materia:** BOG-2029789-1-2026-01 — El Primer Gobierno de Izquierda en Colombia: Elementos para un Balance  
 **Archivo principal:** `src/app/App.tsx`  

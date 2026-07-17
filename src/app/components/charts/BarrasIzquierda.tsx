@@ -6,6 +6,7 @@ import {
   Tooltip,
   ResponsiveContainer,
   Cell,
+  LabelList,
 } from "recharts";
 import { C } from "../../constants";
 import { useFilters } from "../../../context/FilterContext";
@@ -16,6 +17,9 @@ interface BarData {
   depto: string;
   ph: number;
   fa: number;
+  fc: number;
+  totalVotos: number;
+  pctNacional: number;
 }
 
 function CustomTooltip({ active, payload }: any) {
@@ -34,7 +38,11 @@ function CustomTooltip({ active, payload }: any) {
     >
       <p style={{ fontWeight: 700, color: C.ink, marginBottom: 4 }}>{d.depto}</p>
       <p style={{ color: C.ph }}>Pacto Histórico: {d.ph.toLocaleString("es-CO")}</p>
-      <p style={{ color: "#e91e63" }}>Otra izquierda: {d.fa.toLocaleString("es-CO")}</p>
+      <p style={{ color: "#e91e63" }}>Frente Amplio: {d.fa.toLocaleString("es-CO")}</p>
+      <p style={{ color: "#0F766E" }}>Fuerza Ciudadana: {d.fc.toLocaleString("es-CO")}</p>
+      <p style={{ color: C.slate, marginTop: 4, borderTop: `1px solid ${C.border}`, paddingTop: 4 }}>
+        % voto nacional PH: {d.pctNacional.toFixed(1)}%
+      </p>
     </div>
   );
 }
@@ -44,18 +52,26 @@ export function BarrasIzquierda() {
   const { aggregateByDept } = useMunicipiosData();
   const isMobile = useIsMobile();
 
-  const data: BarData[] = aggregateByDept;
+  const nacionalPH = aggregateByDept.reduce((s, d) => s + d.ph, 0);
+  const data: BarData[] = aggregateByDept.map((d) => ({
+    ...d,
+    pctNacional: (d.ph / nacionalPH) * 100,
+  }));
 
   return (
     <div style={{ userSelect: "none" }}>
-      <div style={{ display: "flex", gap: 16, marginBottom: 12 }}>
+      <div style={{ display: "flex", gap: 16, marginBottom: 12, flexWrap: "wrap" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 10, color: C.slate }}>
           <span style={{ width: 10, height: 10, backgroundColor: C.ph, borderRadius: 1, flexShrink: 0 }} />
-          Pacto Histórico
+          PH
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 10, color: C.slate }}>
           <span style={{ width: 10, height: 10, backgroundColor: "#e91e63", borderRadius: 1, flexShrink: 0 }} />
-          Otra izquierda
+          FAU
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 10, color: C.slate }}>
+          <span style={{ width: 10, height: 10, backgroundColor: "#0F766E", borderRadius: 1, flexShrink: 0 }} />
+          FC
         </div>
       </div>
       <div className={isMobile ? "overflow-x-auto scroll-x -mx-1 px-1" : ""}>
@@ -96,6 +112,21 @@ export function BarrasIzquierda() {
                 fill="#e91e63"
               />
             ))}
+          </Bar>
+          <Bar dataKey="fc" fill="#0F766E" stackId="a" minPointSize={2}>
+            {data.map((entry) => (
+              <Cell
+                key={`fc-${entry.depto}`}
+                opacity={selectedDepto && entry.depto !== selectedDepto ? 0.3 : 1}
+                fill="#0F766E"
+              />
+            ))}
+            <LabelList
+              dataKey="pctNacional"
+              position="right"
+              formatter={(v: number) => `${v.toFixed(1)}%`}
+              style={{ fontSize: 8, fontFamily: "Roboto Mono, monospace", fill: C.slate }}
+            />
           </Bar>
         </BarChart>
       </ResponsiveContainer>

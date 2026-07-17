@@ -29,14 +29,20 @@ function getCapaField(layer: string, year: "2022" | "2026"): string {
   return map[layer] || "ganador_2026";
 }
 
-export function MapaTerritorial() {
+interface MapaProps {
+  layer?: string;
+  hideControls?: boolean;
+}
+
+export function MapaTerritorial({ layer, hideControls }: MapaProps) {
   const { loading, data, features, maxVotes, getBoundsForDept } = useMunicipiosData();
   const { activeMapLayer, mapYear, setSelectedDepto, setSelectedMunicipio, selectedDepto } =
     useFilters();
+  const effectiveLayer = layer || activeMapLayer;
 
   const capaField = useMemo(
-    () => getCapaField(activeMapLayer, mapYear),
-    [activeMapLayer, mapYear]
+    () => getCapaField(effectiveLayer, mapYear),
+    [effectiveLayer, mapYear]
   );
 
   const geoJsonStyle = useMemo(
@@ -53,13 +59,13 @@ export function MapaTerritorial() {
     () => (feature: any, layer: any) => {
       const p = feature.properties;
       const html =
-        activeMapLayer === "bloques"
+        effectiveLayer === "bloques"
           ? tooltipBloques(p, mapYear)
-          : activeMapLayer === "partidos"
+          : effectiveLayer === "partidos"
           ? tooltipPartidos(p, mapYear)
-          : activeMapLayer === "izquierda"
+          : effectiveLayer === "izquierda"
           ? tooltipIzquierda(p)
-          : activeMapLayer === "pacto_pct" || activeMapLayer === "pacto_delta"
+          : effectiveLayer === "pacto_pct" || effectiveLayer === "pacto_delta"
           ? tooltipPacto(p)
           : `<b>${p.municipio}</b> (${p.departamento})`;
 
@@ -71,7 +77,7 @@ export function MapaTerritorial() {
         setSelectedMunicipio(p.municipio);
       });
     },
-    [activeMapLayer, mapYear, setSelectedDepto, setSelectedMunicipio]
+    [effectiveLayer, mapYear, setSelectedDepto, setSelectedMunicipio]
   );
 
   const concFeatures = useMemo(
@@ -115,7 +121,7 @@ export function MapaTerritorial() {
         />
         <MapController getBoundsForDept={getBoundsForDept} />
 
-        {activeMapLayer !== "concentracion" ? (
+        {effectiveLayer !== "concentracion" ? (
           <GeoJSON
             key={capaField}
             data={data as any}

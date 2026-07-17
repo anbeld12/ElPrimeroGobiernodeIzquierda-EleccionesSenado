@@ -6,6 +6,7 @@ import {
   CartesianGrid,
   Tooltip,
   ReferenceLine,
+  Label,
   ResponsiveContainer,
 } from "recharts";
 import { C } from "../../constants";
@@ -13,6 +14,9 @@ import { useMunicipiosData } from "../../../context/MunicipiosContext";
 
 function CustomTooltip({ active, payload }: any) {
   if (!active || !payload?.length) return null;
+  const d = payload[0].payload;
+  const label = payload[0].name === "concentracion" ? "PH 2026" :
+    payload[0].name === "concentracion2022" ? "PH 2022" : "Equidad";
   return (
     <div
       style={{
@@ -24,33 +28,30 @@ function CustomTooltip({ active, payload }: any) {
         boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
       }}
     >
-      <p style={{ color: C.slate }}>Municipios acumulados: {payload[0].payload.pct}%</p>
-      <p style={{ color: C.ph }}>Voto PH acumulado: {(payload[0].payload.concentracion * 100).toFixed(1)}%</p>
+      <p style={{ color: C.slate }}>Municipios acumulados: {d.pct}%</p>
+      <p style={{ color: payload[0].color }}>{label}: {(Number(d[payload[0].name as keyof typeof d]) * 100).toFixed(1)}%</p>
     </div>
   );
 }
 
 export function LorenzCurve() {
-  const { computeLorenz, actualGini } = useMunicipiosData();
-  const lorenzData = computeLorenz;
+  const { computeLorenz, computeLorenz2022, actualGini, gini2022 } = useMunicipiosData();
+
+  const mergedData = computeLorenz.map((point, i) => ({
+    ...point,
+    concentracion2022: computeLorenz2022[i]?.concentracion ?? 0,
+  }));
 
   return (
     <div style={{ userSelect: "none" }}>
-      <p
-        style={{
-          fontFamily: "Roboto Mono, monospace",
-          fontSize: 9,
-          letterSpacing: "0.12em",
-          textTransform: "uppercase",
-          color: C.slate,
-          marginBottom: 12,
-        }}
-      >
-        Curva de Lorenz — Concentración del voto PH (Gini = {actualGini.toFixed(2)})
-      </p>
-      <ResponsiveContainer width="100%" height={200}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginBottom: 12 }}>
+        <span className="font-mono text-[9px] tracking-[0.12em] uppercase text-slate">
+          Curva de Lorenz — Concentración territorial del voto
+        </span>
+      </div>
+      <ResponsiveContainer width="100%" height={220}>
         <LineChart
-          data={lorenzData}
+          data={mergedData}
           margin={{ top: 8, right: 16, bottom: 8, left: 8 }}
         >
           <CartesianGrid strokeDasharray="3 3" stroke={C.border} strokeWidth={0.75} />
@@ -72,7 +73,13 @@ export function LorenzCurve() {
             stroke="#DC2626"
             strokeWidth={1}
             strokeDasharray="3 3"
-          />
+          >
+            <Label
+              value="80% de municipios"
+              position="insideTopLeft"
+              style={{ fontSize: 8, fontFamily: "Roboto Mono, monospace", fill: "#DC2626" }}
+            />
+          </ReferenceLine>
           <Line
             type="monotone"
             dataKey="equidad"
@@ -80,6 +87,16 @@ export function LorenzCurve() {
             strokeWidth={1}
             strokeDasharray="4 4"
             dot={false}
+            name="equidad"
+          />
+          <Line
+            type="monotone"
+            dataKey="concentracion2022"
+            stroke="#6D28D9"
+            strokeWidth={1.5}
+            strokeDasharray="4 2"
+            dot={false}
+            name="concentracion2022"
           />
           <Line
             type="monotone"
@@ -87,12 +104,14 @@ export function LorenzCurve() {
             stroke={C.ph}
             strokeWidth={2}
             dot={false}
+            name="concentracion"
           />
         </LineChart>
       </ResponsiveContainer>
       <div style={{ display: "flex", justifyContent: "space-between", fontSize: 9, color: C.slate, marginTop: 4 }}>
         <span>Equidad perfecta</span>
-        <span>PH 2026 (Gini = {actualGini.toFixed(2)})</span>
+        <span style={{ color: "#6D28D9" }}>PH 2022 (Gini = {gini2022.toFixed(2)})</span>
+        <span style={{ color: C.ph }}>PH 2026 (Gini = {actualGini.toFixed(2)})</span>
       </div>
     </div>
   );

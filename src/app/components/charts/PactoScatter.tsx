@@ -305,6 +305,17 @@ export function PactoScatter() {
         font: { family: "Roboto Mono, monospace", size: 10, color: "#0F172A" },
       },
       dragmode: false as const,
+      shapes: [{
+        type: 'line',
+        x0: 0, y0: 0,
+        x1: 80, y1: 80,
+        line: { color: '#94A3B8', width: 1, dash: 'dot' },
+        label: {
+          text: '2022 = 2026',
+          font: { size: isMobile ? 7 : 9, family: 'Roboto Mono, monospace', color: '#94A3B8' },
+          textposition: 'end',
+        },
+      }],
     }),
     [isMobile]
   );

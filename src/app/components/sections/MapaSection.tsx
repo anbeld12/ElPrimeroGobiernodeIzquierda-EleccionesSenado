@@ -1,7 +1,15 @@
 import { SectionNum } from "../ui/SectionNum";
 import { MapaTerritorial } from "../maps/MapaTerritorial";
-import { LayerControls } from "../maps/LayerControls";
 import { useFilters } from "../../../context/FilterContext";
+
+const MAP_LAYERS = [
+  { id: "bloques", label: "Bloque ganador", desc: "Distribución del bloque ganador por municipio en las elecciones al Senado." },
+  { id: "partidos", label: "Partido ganador", desc: "Partido político más votado por municipio." },
+  { id: "pacto_pct", label: "% Pacto Histórico", desc: "Porcentaje de votación del Pacto Histórico por municipio." },
+  { id: "pacto_delta", label: "Variación PH", desc: "Variación en puntos porcentuales del PH entre 2022 y 2026." },
+  { id: "concentracion", label: "Concentración PH", desc: "Volumen de votos absolutos del PH. Círculos más grandes = más votos." },
+  { id: "izquierda", label: "1.ª fuerza izquierda", desc: "Primera fuerza de izquierda por municipio." },
+];
 
 export function MapaSection() {
   const { selectedDepto } = useFilters();
@@ -15,30 +23,32 @@ export function MapaSection() {
             Geografía Electoral del Cambio
           </h2>
         </div>
-        <p className="text-xs md:text-[13px] text-slate mb-2 pl-0 md:pl-12">
-          Distribución territorial del voto a nivel municipal. Seleccione una capa para explorar los patrones geográficos del Senado 2022&ndash;2026.
+        <p className="text-xs md:text-[13px] text-slate mb-6 pl-0 md:pl-12">
+          Distribución territorial del voto a nivel municipal.
         </p>
 
         {selectedDepto && (
-          <p className="text-[11px] text-ph mb-4 pl-0 md:pl-12 font-mono">
-            Departamento seleccionado: <strong>{selectedDepto}</strong> — Los gráficos de las secciones siguientes están filtrados por esta región.
+          <p className="text-[11px] text-ph mb-6 pl-0 md:pl-12 font-mono">
+            Departamento seleccionado: <strong>{selectedDepto}</strong>
           </p>
         )}
 
-        <div className="pl-0 md:pl-12 grid grid-cols-1 gap-6">
-          <div className="h-[400px] md:h-[600px] relative border border-border-default rounded-sm overflow-hidden">
-            <MapaTerritorial />
-            <LayerControls />
-          </div>
-        </div>
-
-        <div className="pl-0 md:pl-12 mt-5 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-          <div className="p-4 border border-border-default rounded-sm bg-white text-xs md:text-[12px] text-slate leading-[1.6]">
-            <strong className="text-ink">Interpretación:</strong> El mapa de bloques muestra cómo la mayoría de municipios colombianos votaron mayoritariamente por la derecha (azul) y el centro (naranja), mientras que la izquierda (rojo) se concentra en el Pacífico, la Amazonía y algunos focos urbanos. El Pacto Histórico, pese a ganar en pocos municipios, concentra votos en las grandes ciudades.
-          </div>
-          <div className="p-4 border border-border-default rounded-sm bg-white text-xs md:text-[12px] text-slate leading-[1.6]">
-            <strong className="text-ink">Interactividad:</strong> Haga clic en cualquier municipio para seleccionar su departamento. Esto actualizará los gráficos de dispersión (§06) y de barras (§05) para resaltar los datos de esa región. Use el panel superior derecho para cambiar entre las 6 capas de información disponibles.
-          </div>
+        <div className="pl-0 md:pl-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+          {MAP_LAYERS.map((ml) => (
+            <div key={ml.id} className="border border-border-default rounded-sm overflow-hidden">
+              <div className="px-3 py-2 bg-soft border-b border-border-default">
+                <p className="font-mono text-[9px] tracking-[0.12em] uppercase text-slate">
+                  {ml.label}
+                </p>
+              </div>
+              <div className="h-[260px] md:h-[320px]">
+                <MapaTerritorial layer={ml.id} hideControls />
+              </div>
+              <div className="px-3 py-1.5 text-[10px] text-slate bg-white">
+                {ml.desc}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

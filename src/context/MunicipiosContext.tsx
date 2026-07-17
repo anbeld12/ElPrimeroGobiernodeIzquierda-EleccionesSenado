@@ -10,7 +10,9 @@ interface MunicipiosContextValue {
   maxVotes: number;
   aggregateByDept: DeptAgg[];
   computeLorenz: LorenzPoint[];
+  computeLorenz2022: LorenzPoint[];
   actualGini: number;
+  gini2022: number;
   getBoundsForDept: (depto: string) => [[number, number], [number, number]] | null;
 }
 
