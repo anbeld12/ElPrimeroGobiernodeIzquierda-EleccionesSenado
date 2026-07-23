@@ -226,7 +226,7 @@ export function MapaInteractivoSection() {
           <div className="pl-0 md:pl-12 grid grid-cols-1 lg:grid-cols-[7fr_5fr] gap-8 lg:gap-12">
             <div>
               <div className="h-[400px] md:h-[520px] border border-border-default rounded-sm overflow-hidden">
-                <MapaTerritorial layer="concentracion" hideControls showLegend />
+                <MapaTerritorial layer="concentracion" hideControls />
               </div>
               <p className="font-mono text-[10px] text-slate/50 mt-1.5 text-right">
                 El &aacute;rea del c&iacute;rculo es proporcional a los votos absolutos del Pacto en cada municipio.
