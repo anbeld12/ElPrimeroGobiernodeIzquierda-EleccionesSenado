@@ -6,6 +6,7 @@ import { useMunicipiosData } from "../../../context/MunicipiosContext";
 import { useFilters } from "../../../context/FilterContext";
 import { C } from "../../constants";
 import { getFillColor } from "./LayerStyles";
+import { MapLegendOverlay } from "./MapLegendOverlay";
 import {
   tooltipBloques,
   tooltipPartidos,
@@ -34,11 +35,12 @@ function getCapaField(layer: string, year: "2022" | "2026"): string {
 interface MapaProps {
   layer?: string;
   hideControls?: boolean;
+  showLegend?: boolean;
 }
 
-export function MapaTerritorial({ layer, hideControls }: MapaProps) {
+export function MapaTerritorial({ layer, hideControls, showLegend }: MapaProps) {
   const { loading, data, features, maxVotes, getBoundsForDept } = useMunicipiosData();
-  const { activeMapLayer, mapYear, setSelectedDepto, setSelectedMunicipio, selectedDepto } =
+  const { activeMapLayer, mapYear, filterCategory, setSelectedDepto, setSelectedMunicipio, selectedDepto } =
     useFilters();
   const effectiveLayer = layer || activeMapLayer;
 
@@ -48,13 +50,16 @@ export function MapaTerritorial({ layer, hideControls }: MapaProps) {
   );
 
   const geoJsonStyle = useMemo(
-    () => (feature: any) => ({
-      fillColor: getFillColor(capaField, feature.properties),
-      fillOpacity: 0.8,
-      color: "#fff",
-      weight: 0.4,
-    }),
-    [capaField]
+    () => (feature: any) => {
+      const match = !filterCategory || feature.properties[capaField] === filterCategory;
+      return {
+        fillColor: getFillColor(capaField, feature.properties),
+        fillOpacity: match ? 0.8 : 0.08,
+        color: match ? "#fff" : "#e2e8f0",
+        weight: match ? 0.4 : 0.1,
+      };
+    },
+    [capaField, filterCategory]
   );
 
   const onEachFeature = useMemo(
@@ -128,6 +133,8 @@ export function MapaTerritorial({ layer, hideControls }: MapaProps) {
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
         />
         <MapController getBoundsForDept={getBoundsForDept} />
+
+        {showLegend && <MapLegendOverlay />}
 
         {effectiveLayer !== "concentracion" ? (
           <GeoJSON

@@ -73,6 +73,7 @@ export function getFillColor(capa: string, props: any): string {
     case "delta_pp":
       return escDelta(props.delta_pp);
     case "part_2026":
+      if (props.part_2026 == null || isNaN(props.part_2026)) return PAL_PART[0];
       return escPart(props.part_2026);
     default:
       return SIN_DATO;

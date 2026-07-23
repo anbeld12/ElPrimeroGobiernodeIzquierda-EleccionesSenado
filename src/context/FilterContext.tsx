@@ -15,6 +15,7 @@ interface FilterState {
   highlightedParty: string | null;
   activeMapLayer: MapLayer;
   mapYear: "2022" | "2026";
+  filterCategory: string | null;
 }
 
 interface FilterContextValue extends FilterState {
@@ -23,6 +24,7 @@ interface FilterContextValue extends FilterState {
   setHighlightedParty: (p: string | null) => void;
   setActiveMapLayer: (l: MapLayer) => void;
   setMapYear: (y: "2022" | "2026") => void;
+  setFilterCategory: (c: string | null) => void;
   resetFilters: () => void;
 }
 
@@ -32,6 +34,7 @@ const defaults: FilterState = {
   highlightedParty: null,
   activeMapLayer: "bloques",
   mapYear: "2026",
+  filterCategory: null,
 };
 
 const FilterContext = createContext<FilterContextValue | null>(null);
@@ -42,10 +45,15 @@ export function FilterProvider({ children }: { children: ReactNode }) {
   const [highlightedParty, setHighlightedParty] = useState<string | null>(null);
   const [activeMapLayer, setActiveMapLayer] = useState<MapLayer>("bloques");
   const [mapYear, setMapYear] = useState<"2022" | "2026">("2026");
+  const [filterCategory, setFilterCategory] = useState<string | null>(null);
 
   useEffect(() => {
     setSelectedMunicipio(null);
   }, [selectedDepto]);
+
+  useEffect(() => {
+    setFilterCategory(null);
+  }, [activeMapLayer, mapYear]);
 
   const resetFilters = () => {
     setSelectedDepto(null);
@@ -53,6 +61,7 @@ export function FilterProvider({ children }: { children: ReactNode }) {
     setHighlightedParty(null);
     setActiveMapLayer("bloques");
     setMapYear("2026");
+    setFilterCategory(null);
   };
 
   return (
@@ -63,11 +72,13 @@ export function FilterProvider({ children }: { children: ReactNode }) {
         highlightedParty,
         activeMapLayer,
         mapYear,
+        filterCategory,
         setSelectedDepto,
         setSelectedMunicipio,
         setHighlightedParty,
         setActiveMapLayer,
         setMapYear,
+        setFilterCategory,
         resetFilters,
       }}
     >

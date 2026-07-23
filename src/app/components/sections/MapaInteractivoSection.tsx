@@ -1,4 +1,4 @@
-import { useState, ReactNode } from "react";
+import { useState, useEffect, ReactNode } from "react";
 import { SectionNum } from "../ui/SectionNum";
 import { MapaTerritorial } from "../maps/MapaTerritorial";
 import { useFilters, MapLayer } from "../../../context/FilterContext";
@@ -127,7 +127,15 @@ const TAB_ORDER: TabId[] = ["bloques", "partidos", "pacto", "concentracion", "iz
 export function MapaInteractivoSection() {
   const [tab, setTab] = useState<TabId>("bloques");
   const [pactoSub, setPactoSub] = useState<"pct" | "delta">("pct");
-  const { mapYear, setMapYear } = useFilters();
+  const { mapYear, setMapYear, setActiveMapLayer } = useFilters();
+
+  useEffect(() => {
+    if (tab === "pacto") {
+      setActiveMapLayer(pactoSub === "pct" ? "pacto_pct" : "pacto_delta");
+    } else if (tab === "bloques" || tab === "partidos" || tab === "concentracion" || tab === "izquierda" || tab === "participacion") {
+      setActiveMapLayer(tab);
+    }
+  }, [tab, pactoSub, setActiveMapLayer]);
 
   const current = TABS[tab];
 
@@ -216,8 +224,13 @@ export function MapaInteractivoSection() {
 
         {tab === "concentracion" ? (
           <div className="pl-0 md:pl-12 grid grid-cols-1 lg:grid-cols-[7fr_5fr] gap-8 lg:gap-12">
-            <div className="h-[400px] md:h-[520px] border border-border-default rounded-sm overflow-hidden">
-              <MapaTerritorial layer="concentracion" hideControls />
+            <div>
+              <div className="h-[400px] md:h-[520px] border border-border-default rounded-sm overflow-hidden">
+                <MapaTerritorial layer="concentracion" hideControls showLegend />
+              </div>
+              <p className="font-mono text-[10px] text-slate/50 mt-1.5 text-right">
+                El &aacute;rea del c&iacute;rculo es proporcional a los votos absolutos del Pacto en cada municipio.
+              </p>
             </div>
             <div className="flex flex-col gap-6">
               <div className="p-4 border border-border-default rounded-sm bg-white">
@@ -229,7 +242,7 @@ export function MapaInteractivoSection() {
         ) : tab === "izquierda" ? (
           <div className="pl-0 md:pl-12 grid grid-cols-1 lg:grid-cols-[6fr_6fr] gap-8 lg:gap-12">
             <div className="h-[400px] md:h-[520px] border border-border-default rounded-sm overflow-hidden">
-              <MapaTerritorial layer="izquierda" hideControls />
+              <MapaTerritorial layer="izquierda" hideControls showLegend />
             </div>
             <div className="border border-border-default rounded-sm overflow-hidden p-4 md:p-6 bg-white">
               <p className="font-mono text-[9px] tracking-[0.12em] uppercase text-slate mb-4">
@@ -241,7 +254,7 @@ export function MapaInteractivoSection() {
         ) : (
           <div className="pl-0 md:pl-12">
             <div className="h-[400px] md:h-[520px] border border-border-default rounded-sm overflow-hidden">
-              <MapaTerritorial layer={effectiveLayer} hideControls />
+              <MapaTerritorial layer={effectiveLayer} hideControls showLegend />
             </div>
           </div>
         )}
