@@ -6,7 +6,8 @@ export type MapLayer =
   | "pacto_pct"
   | "pacto_delta"
   | "concentracion"
-  | "izquierda";
+  | "izquierda"
+  | "participacion";
 
 interface FilterState {
   selectedDepto: string | null;

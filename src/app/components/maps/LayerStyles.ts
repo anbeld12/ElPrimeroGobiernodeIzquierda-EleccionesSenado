@@ -48,9 +48,11 @@ function escala(colores: string[], v0: number, v1: number) {
 
 export const PAL_PCT = ["#fcfbfd", "#807dba", "#3f007d"];
 export const PAL_DELTA = ["#e66101", "#f7f7f7", "#5e3c99"];
+export const PAL_PART = ["#e0f2f1", "#00695c"];
 
 export const escPct = escala(PAL_PCT, 0, 60);
 export const escDelta = escala(PAL_DELTA, -25, 25);
+export const escPart = escala(PAL_PART, 20, 75);
 
 export function getFillColor(capa: string, props: any): string {
   switch (capa) {
@@ -70,6 +72,8 @@ export function getFillColor(capa: string, props: any): string {
       return escPct(props.pct_pacto_2026);
     case "delta_pp":
       return escDelta(props.delta_pp);
+    case "part_2026":
+      return escPart(props.part_2026);
     default:
       return SIN_DATO;
   }
@@ -84,11 +88,12 @@ export function getLegendTitle(capa: string): string {
     izq_2026: "1ª fuerza de la izquierda 2026",
     pct_pacto_2026: "% votos Pacto (Senado 2026)",
     delta_pp: "Cambio 2022→2026 (pp)",
+    part_2026: "Participación electoral 2026",
   };
   return titles[capa] || capa;
 }
 
 export function getLegendType(capa: string): "categorica" | "continua" {
-  const continuas = ["pct_pacto_2026", "delta_pp"];
+  const continuas = ["pct_pacto_2026", "delta_pp", "part_2026"];
   return continuas.includes(capa) ? "continua" : "categorica";
 }

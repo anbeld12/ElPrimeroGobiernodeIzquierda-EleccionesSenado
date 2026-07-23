@@ -12,6 +12,7 @@ import {
   tooltipIzquierda,
   tooltipPacto,
   tooltipConcentracion,
+  tooltipParticipacion,
 } from "./LayerTooltips";
 
 const center: [number, number] = [4.6, -73.1];
@@ -25,6 +26,7 @@ function getCapaField(layer: string, year: "2022" | "2026"): string {
     pacto_delta: "delta_pp",
     concentracion: "concentracion",
     izquierda: "izq_2026",
+    participacion: "part_2026",
   };
   return map[layer] || "ganador_2026";
 }
@@ -67,6 +69,8 @@ export function MapaTerritorial({ layer, hideControls }: MapaProps) {
           ? tooltipIzquierda(p)
           : effectiveLayer === "pacto_pct" || effectiveLayer === "pacto_delta"
           ? tooltipPacto(p)
+          : effectiveLayer === "participacion"
+          ? tooltipParticipacion(p)
           : `<b>${p.municipio}</b> (${p.departamento})`;
 
       layer.bindTooltip(DOMPurify.sanitize(html), { sticky: true });
@@ -114,6 +118,10 @@ export function MapaTerritorial({ layer, hideControls }: MapaProps) {
         zoom={6}
         className="h-full w-full"
         scrollWheelZoom={true}
+        maxBounds={[[-5.5, -82], [16, -66]] as [[number, number], [number, number]]}
+        maxBoundsViscosity={1.0}
+        minZoom={5}
+        maxZoom={12}
       >
         <TileLayer
           attribution='&copy; OpenStreetMap &copy; CARTO — datos: Registraduría, DANE'

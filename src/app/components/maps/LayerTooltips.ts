@@ -52,6 +52,16 @@ export function tooltipPacto(p: any): string {
   );
 }
 
+export function tooltipParticipacion(p: any): string {
+  const abst = 100 - (p.part_2026 ?? 0);
+  return (
+    cab(p) +
+    `Participación 2026: <b>${fmtP(p.part_2026)}</b><br>` +
+    `Abstención: ${fmtP(abst)}<br>` +
+    `Votos depositados: ${fmtN(p.votos_dep_2026)} · Censo: ${fmtN(p.censo_2026)}`
+  );
+}
+
 export function tooltipConcentracion(p: any, anio: string): string {
   const v = p["pacto_" + anio] || 0;
   const pctMuni = p["pct_pacto_" + anio];

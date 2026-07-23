@@ -3,7 +3,7 @@ import { useIsMobile } from "../ui/use-mobile";
 import { C } from "../../constants";
 import { useMunicipiosData } from "../../../context/MunicipiosContext";
 import { useFilters } from "../../../context/FilterContext";
-import { DEPT_REGION, REGION_COLORS, REGION_ORDER } from "../../../data/regions";
+import { REGION_COLORS, REGION_ORDER } from "../../../data/regions";
 
 const ScatterPlot = lazy(() =>
   import("./PactoScatterPlot").then((m) => ({ default: m.PactoScatterPlot }))
@@ -76,7 +76,7 @@ export function PactoScatter() {
           y: p.pct_pacto_2026 ?? 0,
           municipio: p.municipio,
           depto: p.departamento,
-          region: DEPT_REGION[p.departamento] || "Otra",
+          region: p.region || "Otra",
         };
       });
     return raw;

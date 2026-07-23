@@ -4,26 +4,38 @@ export interface GeoProps {
   cod_dane: string;
   municipio: string;
   departamento: string;
+  region: string;
   lat: number;
   lon: number;
   votos_2022: number;
   votos_2026: number;
   ganador_2022: string;
+  ganador_2022_pct: number;
   ganador_2026: string;
+  ganador_2026_pct: number;
   pacto_2022: number;
   pacto_2026: number;
   pct_pacto_2022: number;
   pct_pacto_2026: number;
   delta_pp: number;
+  pct_vce_2022: number;
+  pct_fc_2022: number;
+  pct_fc_2026: number;
+  crec_voto: number;
   izq_2026: string;
   izq_2026_pct: number;
   izq_det_2026: string;
   izq_tot_2026: number;
   concentracion?: number;
   partido_2022?: string;
+  partido_2022_pct?: number;
   partido_2026?: string;
+  partido_2026_pct?: number;
   pacto_rk_2022?: number;
   pacto_rk_2026?: number;
+  censo_2026: number;
+  votos_dep_2026: number;
+  part_2026: number;
 }
 
 export interface DeptAgg {

@@ -4,6 +4,7 @@ import {
   COLORES_PARTIDO,
   PAL_PCT,
   PAL_DELTA,
+  PAL_PART,
   getLegendTitle,
   getLegendType,
 } from "./LayerStyles";
@@ -15,6 +16,7 @@ const LAYER_OPTIONS: { value: MapLayer; label: string }[] = [
   { value: "pacto_delta", label: "Variación PH" },
   { value: "concentracion", label: "Concentración PH" },
   { value: "izquierda", label: "1ª fuerza izquierda" },
+  { value: "participacion", label: "Participación electoral" },
 ];
 
 export function LayerControls() {
@@ -27,6 +29,7 @@ export function LayerControls() {
     pacto_delta: "delta_pp",
     concentracion: "concentracion",
     izquierda: "izq_2026",
+    participacion: "part_2026",
   };
 
   return (
@@ -95,11 +98,13 @@ function Legend({
   title: string;
 }) {
   if (layerType === "continua") {
-    const pal = capa === "pct_pacto_2026" ? PAL_PCT : PAL_DELTA;
+    const pal = capa === "pct_pacto_2026" ? PAL_PCT : capa === "part_2026" ? PAL_PART : PAL_DELTA;
     const grad = `linear-gradient(to right, ${pal.join(", ")})`;
     const ejes =
       capa === "pct_pacto_2026"
         ? ["0%", "30%", "60%"]
+        : capa === "part_2026"
+        ? ["20%", "50%", "75%"]
         : ["\u221225 (bajó)", "0", "+25 (subió)"];
     return (
       <div>
