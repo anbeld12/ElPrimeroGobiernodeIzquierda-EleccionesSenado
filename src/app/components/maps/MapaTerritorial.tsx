@@ -120,7 +120,8 @@ export function MapaTerritorial({ layer, hideControls, showLegend }: MapaProps) 
     <div className="h-full min-h-[500px] relative">
       <MapContainer
         center={center}
-        zoom={6}
+        zoom={5.5}
+        zoomSnap={0.5}
         className="h-full w-full"
         scrollWheelZoom={true}
         maxBounds={[[-5.5, -84], [16, -64]] as [[number, number], [number, number]]}

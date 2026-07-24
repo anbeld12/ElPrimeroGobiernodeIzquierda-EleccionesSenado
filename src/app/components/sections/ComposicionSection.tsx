@@ -200,7 +200,7 @@ export function ComposicionSection() {
 
         <div className="pl-0 md:pl-12 mt-10">
           <div className="text-xs md:text-[13px] text-slate leading-[1.8] max-w-[900px]">
-            La foto institucional esconde la verdadera correlación de fuerzas. Sumadas, las bancadas de derecha y centroderecha (Centro Democrático, Conservador, Cambio Radical, Salvación Nacional) superan ampliamente a la oposición, mientras el bloque bisagra (Liberal, La U, &iexcl;Ahora Colombia!) queda como árbitro de cada votación. Ser la primera minoría en un Congreso fragmentado significa tener la vocería.
+            La foto institucional esconde la verdadera correlación de fuerzas. Sumadas, las bancadas de derecha y centroderecha (Centro Democrático, Conservador, Cambio Radical, Salvación Nacional) superan ampliamente a la oposición, mientras el bloque bisagra (Conservador, Liberal, Alianza por Colombia, Dignidad) queda como árbitro de cada votación. Ser la primera minoría en un Congreso fragmentado significa tener la vocería.
           </div>
         </div>
       </div>

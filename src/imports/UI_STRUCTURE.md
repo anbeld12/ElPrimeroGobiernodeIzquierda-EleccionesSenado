@@ -304,8 +304,8 @@ SVG puro `viewBox="0 0 560 290"`. Área de trazado con padding `{top:16, right:2
 | Tarjeta | Curules | Color acento | Fondo |
 |---|---|---|---|
 | Bancada de Oposición | 28 | `#6D28D9` | `rgba(109,40,217,0.04)` |
-| Bloque Bisagra / Independiente | 27 | `#0F766E` | `rgba(15,118,110,0.04)` |
-| Bancada Afín al Gobierno | 48 | `#991B1B` | `rgba(153,27,27,0.04)` |
+| Bloque Bisagra / Independiente | 33 | `#0F766E` | `rgba(15,118,110,0.04)` |
+| Bancada Afín al Gobierno | 42 | `#991B1B` | `rgba(153,27,27,0.04)` |
 
 - Número grande: `Roboto Mono` 52px · weight 700 · color del acento
 - Subtítulo del bloque: `Roboto Mono` 9px uppercase · color del acento
@@ -399,8 +399,8 @@ SVG puro `viewBox="0 0 560 290"`. Área de trazado con padding `{top:16, right:2
 | Bloque | Composición | Curules |
 |---|---|---|
 | Bancada de Oposición | PH (25) + Indígenas (2) + Estatuto Oposición (1) | 28 |
-| Bloque Bisagra / Independiente | Liberal (13) + La U (9) + Ahora Colombia (5) | 27 |
-| Bancada Afín al Gobierno | CD (17) + PC (10) + CR–ALMA (7) + SN (4) + Alianza (10) | 48 |
+| Bloque Bisagra / Independiente | Conservador (10) + Liberal (13) + Alianza por Colombia (10) + Dignidad | 33 |
+| Bancada Afín al Gobierno | CD (17) + La U (9) + CR–ALMA (7) + SN (4) + ¡Ahora Colombia! (5) | 42 |
 | **Total** | | **103** |
 
 ### Índices de Gini — Concentración territorial del voto
