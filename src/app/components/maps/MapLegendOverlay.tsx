@@ -26,7 +26,47 @@ export function MapLegendOverlay() {
   const [collapsed, setCollapsed] = useState(false);
   const { activeMapLayer, mapYear, filterCategory, setFilterCategory } = useFilters();
 
-  if (activeMapLayer === "concentracion") return null;
+  if (activeMapLayer === "concentracion") {
+    if (collapsed) {
+      return (
+        <button
+          onClick={() => setCollapsed(false)}
+          className="absolute bottom-3 left-3 z-[1000] bg-white/90 backdrop-blur-sm px-2.5 py-1.5 rounded-lg shadow-md cursor-pointer border-none text-[10px] font-mono text-slate hover:text-ink transition-colors flex items-center gap-1"
+        >
+          <span>Leyenda</span>
+          <span className="text-slate/40">&#9656;</span>
+        </button>
+      );
+    }
+    return (
+      <div className="absolute bottom-3 left-3 z-[1000] bg-white/90 backdrop-blur-sm px-3 py-2.5 md:px-4 md:py-3 rounded-lg shadow-md max-w-[220px] md:max-w-[260px]">
+        <div className="flex items-center justify-between mb-1.5">
+          <p className="font-mono text-[8px] tracking-[0.1em] uppercase text-slate/50">Votos Pacto Hist&oacute;rico</p>
+          <button
+            onClick={() => setCollapsed(true)}
+            className="cursor-pointer border-none bg-transparent text-slate/30 hover:text-slate/60 transition-colors p-0.5 leading-none"
+            aria-label="Contraer leyenda"
+          >
+            <span className="text-[10px] font-mono">&#9660;</span>
+          </button>
+        </div>
+        <div className="flex items-center gap-3 py-1">
+          <div className="flex flex-col items-center gap-0.5">
+            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: "#6c3483", opacity: 0.55 }} />
+            <span className="text-[8px] text-slate/50 font-mono">Menor</span>
+          </div>
+          <div className="flex-1 border-t border-dashed border-slate/30" />
+          <div className="flex flex-col items-center gap-0.5">
+            <div className="w-5 h-5 rounded-full" style={{ backgroundColor: "#6c3483", opacity: 0.55 }} />
+            <span className="text-[8px] text-slate/50 font-mono">Mayor</span>
+          </div>
+        </div>
+        <p className="text-[8px] text-slate/50 mt-1 leading-[1.4]">
+          Di&aacute;metro del c&iacute;rculo proporcional a los votos absolutos del Pacto en cada municipio.
+        </p>
+      </div>
+    );
+  }
 
   const capa = activeMapLayer === "bloques"
     ? `ganador_${mapYear}`

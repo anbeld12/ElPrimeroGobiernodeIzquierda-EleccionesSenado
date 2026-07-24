@@ -4,7 +4,7 @@ export function MapaSkeleton() {
       <div className="section-container py-10 md:py-16">
         <div className="flex items-baseline mb-1.5">
           <span className="font-mono text-[10px] text-slate tracking-[0.12em] mr-3.5">
-            § 04b
+            04
           </span>
           <span className="font-editorial text-xl md:text-[26px] font-medium text-border-default">
             Geografía Electoral del Cambio

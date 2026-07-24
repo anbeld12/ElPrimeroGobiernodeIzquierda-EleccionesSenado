@@ -8,7 +8,7 @@ export function ColapsoSection() {
   return (
     <section id="colapso" className="section-container py-10 md:py-16">
       <div className="flex items-baseline mb-1.5">
-        <SectionNum n="§ 05" />
+        <SectionNum n="05" />
         <h2 className="font-editorial text-xl md:text-[26px] font-medium text-ink">
           El Colapso del Progresismo Disidente y la Pérdida del Umbral
         </h2>

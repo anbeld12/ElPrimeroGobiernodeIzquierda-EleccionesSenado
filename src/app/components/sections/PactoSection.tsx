@@ -6,7 +6,7 @@ export function PactoSection() {
     <section id="pacto" className="bg-soft">
       <div className="section-container py-10 md:py-16">
         <div className="flex items-baseline mb-1.5">
-          <SectionNum n="§ 04" />
+          <SectionNum n="03" />
           <h2 className="font-editorial text-xl md:text-[26px] font-medium text-ink">
             Desempeño y Consolidación del Pacto Histórico: 2022 vs. 2026
           </h2>

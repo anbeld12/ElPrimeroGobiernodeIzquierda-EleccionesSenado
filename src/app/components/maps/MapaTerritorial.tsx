@@ -162,7 +162,7 @@ export function MapaTerritorial({ layer, hideControls, showLegend }: MapaProps) 
                   }}
                 >
                   <Tooltip sticky>
-                    {tooltipConcentracion(p, mapYear)}
+                    <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(tooltipConcentracion(p, mapYear)) }} />
                   </Tooltip>
                 </CircleMarker>
               );

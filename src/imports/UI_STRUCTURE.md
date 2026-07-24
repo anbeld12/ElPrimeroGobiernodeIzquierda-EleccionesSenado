@@ -78,8 +78,8 @@ z# UI_STRUCTURE.md
 ### `<Divider />`
 Línea horizontal de 1px `#E2E8F0`. Separa todas las secciones. No tiene margen propio.
 
-### `<SectionNum n="§ XX" />`
-Etiqueta prefija de sección en `Roboto Mono` 11px, uppercase, `opacity: 0.35`. Aparece inline antes del H2. Ejemplo: `§ 03`.
+### `<SectionNum n="XX" />`
+Etiqueta prefija de sección en `Roboto Mono` 11px, uppercase, `opacity: 0.35`. Aparece inline antes del H2. Ejemplo: `03`.
 
 ### `<KpiCard />`
 Tarjeta de métrica con:

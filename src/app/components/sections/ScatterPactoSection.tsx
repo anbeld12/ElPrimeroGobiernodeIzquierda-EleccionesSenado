@@ -4,7 +4,7 @@ import { PactoScatter } from "../charts/PactoScatter";
 export function ScatterPactoSection() {
   return (
     <SectionNarrative
-      num="§ 04"
+      num="03"
       title="El Pacto creció en 1.066 de los 1.121 municipios del país"
       entrada="Cada burbuja es un municipio; su tamaño, los votos que aporta. La línea diagonal marca el empate entre 2022 y 2026: todo lo que está por encima creció."
       bg="bg-ivory"

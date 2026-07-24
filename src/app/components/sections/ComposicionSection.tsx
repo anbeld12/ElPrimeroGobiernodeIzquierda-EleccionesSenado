@@ -14,7 +14,7 @@ export function ComposicionSection() {
     <section id="composicion" className="bg-ivory">
       <div className="section-container py-10 md:py-16">
         <div className="flex items-baseline mb-1.5">
-          <SectionNum n="§ 01" />
+          <SectionNum n="01" />
           <h2 className="font-editorial text-xl md:text-[26px] font-medium text-ink">
             Primera fuerza, pero sin mayorías
           </h2>

@@ -63,10 +63,17 @@ export function tooltipParticipacion(p: any): string {
 }
 
 export function tooltipConcentracion(p: any, anio: string): string {
-  const v = p["pacto_" + anio] || 0;
-  const pctMuni = p["pct_pacto_" + anio];
+  const v22 = p.pacto_2022 ?? 0;
+  const v26 = p.pacto_2026 ?? 0;
+  const pct22 = p.pct_pacto_2022;
+  const pct26 = p.pct_pacto_2026;
+  const dv = v26 - v22;
+  const signo = dv >= 0 ? "+" : "−";
   return (
     cab(p) +
-    `Pacto ${anio}: <b>${fmtN(v)}</b> votos (${fmtP(pctMuni)} del municipio)`
+    `<u>Pacto Hist&oacute;rico (Senado)</u><br>` +
+    `2022: ${fmtN(v22)} votos ${pct22 != null ? "(" + fmtP(pct22) + ")" : ""}<br>` +
+    `2026: ${fmtN(v26)} votos ${pct26 != null ? "(" + fmtP(pct26) + ")" : ""}<br>` +
+    `Variaci&oacute;n: ${p.delta_pp == null ? "—" : (p.delta_pp > 0 ? "+" : "") + String(p.delta_pp).replace(".", ",")} pp · ${signo}${fmtN(Math.abs(dv))} votos`
   );
 }

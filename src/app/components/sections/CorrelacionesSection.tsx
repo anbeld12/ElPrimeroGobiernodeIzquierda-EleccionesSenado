@@ -5,7 +5,7 @@ import { SvgScatter } from "../charts/ScatterChart";
 export function CorrelacionesSection() {
   return (
     <SectionNarrative
-      num="§ 09"
+      num="04"
       title="El crecimiento del Pacto se explica por un realineamiento del voto, no por una expansión del electorado"
       entrada="Cuatro preguntas, cuatro correlaciones municipales. Ninguna confirma las hipótesis más extendidas."
       bg="bg-soft"
@@ -23,8 +23,11 @@ export function CorrelacionesSection() {
     >
       <div className="flex flex-col gap-6">
         <div className="border border-border-default rounded-sm overflow-hidden p-3 md:p-4 bg-white">
-          <p className="font-mono text-[9px] tracking-[0.12em] uppercase text-slate mb-2">
+          <p className="font-mono text-[9px] tracking-[0.12em] uppercase text-slate mb-1">
             Crecimiento del PH vs. % PH 2022
+          </p>
+          <p className="text-[11px] text-slate mb-3">
+            Cada punto representa un municipio: en el eje X, el % de votos del Pacto en 2022; en el eje Y, su variaci&oacute;n en puntos porcentuales hasta 2026.
           </p>
           <SvgScatter />
         </div>

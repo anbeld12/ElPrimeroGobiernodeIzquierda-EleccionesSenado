@@ -147,7 +147,7 @@ export function MapaInteractivoSection() {
     <section className="bg-ivory">
       <div className="section-container py-10 md:py-16">
         <div className="flex items-baseline mb-1.5">
-          <SectionNum n="§ 02–08" />
+          <SectionNum n="02" />
           <h2 className="font-editorial text-xl md:text-[26px] font-medium text-ink">
             {current.title}
           </h2>
@@ -224,16 +224,16 @@ export function MapaInteractivoSection() {
         )}
 
         {tab === "concentracion" ? (
-          <div className="pl-0 md:pl-12 grid grid-cols-1 lg:grid-cols-[7fr_5fr] gap-8 lg:gap-12">
+          <div className="pl-0 md:pl-12 flex flex-col gap-8">
             <div>
               <div className="h-[420px] md:h-[600px] border border-border-default rounded-sm overflow-hidden">
-                <MapaTerritorial layer="concentracion" hideControls />
+                <MapaTerritorial layer="concentracion" hideControls showLegend />
               </div>
               <p className="font-mono text-[10px] text-slate/50 mt-1.5 text-right">
                 El &aacute;rea del c&iacute;rculo es proporcional a los votos absolutos del Pacto en cada municipio.
               </p>
             </div>
-            <div className="flex flex-col gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="p-4 border border-border-default rounded-sm bg-white">
                 <LorenzCurve />
               </div>

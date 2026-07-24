@@ -7,7 +7,7 @@ export function MovilizacionSection() {
   return (
     <section id="movilizacion" className="section-container py-10 md:py-16">
       <div className="flex items-baseline mb-1.5">
-        <SectionNum n="§ 06" />
+        <SectionNum n="05" />
         <h2 className="font-editorial text-xl md:text-[26px] font-medium text-ink">
           La Paradoja de la Movilización: Abstención y Concentración Local
         </h2>
@@ -18,6 +18,12 @@ export function MovilizacionSection() {
 
       <div className="pl-0 md:pl-12 grid grid-cols-1 lg:grid-cols-[7fr_5fr] gap-8 lg:gap-12">
         <div>
+          <p className="font-mono text-[9px] tracking-[0.12em] uppercase text-slate mb-1">
+            Participaci&oacute;n electoral por municipio &mdash; Senado 2026
+          </p>
+          <p className="text-[11px] text-slate mb-3">
+            Cada punto representa un municipio. El eje X ordena los municipios por departamento; el eje Y muestra el porcentaje de participaci&oacute;n sobre el censo electoral.
+          </p>
           <ParticipationScatter />
         </div>
 

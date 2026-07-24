@@ -12,7 +12,7 @@ export function GobernabilidadSection() {
     <section id="gobernabilidad" className="bg-soft">
       <div className="section-container py-10 md:py-16">
         <div className="flex items-baseline mb-1.5">
-          <SectionNum n="§ 07" />
+          <SectionNum n="06" />
           <h2 className="font-editorial text-xl md:text-[26px] font-medium text-ink">
             Equilibrio del Congreso frente al Ejecutivo 2026&ndash;2030
           </h2>

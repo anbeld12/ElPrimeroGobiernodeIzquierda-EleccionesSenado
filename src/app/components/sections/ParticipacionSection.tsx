@@ -5,7 +5,7 @@ import { ParticipationBars } from "../charts/ParticipationBars";
 export function ParticipacionSection() {
   return (
     <SectionNarrative
-      num="§ 08"
+      num="05"
       title="Votó la mitad del país y la mitad que votó no está repartida al azar"
       entrada="Participación municipal en las legislativas de 2026: votos depositados sobre censo electoral."
       bg="bg-ivory"
