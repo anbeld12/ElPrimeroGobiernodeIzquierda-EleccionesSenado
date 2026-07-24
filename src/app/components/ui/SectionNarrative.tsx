@@ -22,14 +22,14 @@ export function SectionNarrative({ num, title, entrada, children, analisis, pie,
             {title}
           </h2>
         </div>
-        <p className="text-xs md:text-[13px] text-slate mb-8 pl-0 md:pl-12 leading-[1.7] max-w-[680px]">
+        <p className="text-xs md:text-[13px] text-slate mb-8 pl-0 md:pl-12 leading-[1.7] max-w-[900px]">
           {entrada}
         </p>
         <div className="pl-0 md:pl-12">
           {children}
         </div>
         <div className="pl-0 md:pl-12 mt-8">
-          <div className="text-xs md:text-[13px] text-slate leading-[1.8] max-w-[680px] font-sans">
+          <div className="text-xs md:text-[13px] text-slate leading-[1.8] max-w-[900px] font-sans">
             {analisis}
           </div>
           {pie && (

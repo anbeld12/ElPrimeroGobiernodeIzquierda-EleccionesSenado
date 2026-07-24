@@ -1,5 +1,4 @@
 import { SectionNarrative } from "../ui/SectionNarrative";
-import { ParticipationScatter } from "../charts/ParticipationScatter";
 import { CorrelationGrid } from "../charts/CorrelationGrid";
 import { SvgScatter } from "../charts/ScatterChart";
 
@@ -22,24 +21,14 @@ export function CorrelacionesSection() {
       }
       pie="Advertencia: son correlaciones ecológicas, calculadas sobre agregados municipales. Sugieren patrones de flujo, no los demuestran: atribuir comportamientos individuales a partir de datos agregados es una falacia conocida. Además, al no existir censo electoral municipal de 2022 comparable, se usa el nivel de participación de 2026 y no su variación."
     >
-      <div className="grid grid-cols-1 lg:grid-cols-[7fr_5fr] gap-8 lg:gap-12">
-        <div>
+      <div className="flex flex-col gap-6">
+        <div className="border border-border-default rounded-sm overflow-hidden p-3 md:p-4 bg-white">
           <p className="font-mono text-[9px] tracking-[0.12em] uppercase text-slate mb-2">
-            Dispersión municipal: participación por departamento
+            Crecimiento del PH vs. % PH 2022
           </p>
-          <div className="border border-border-default rounded-sm overflow-hidden p-3 md:p-4 bg-white">
-            <ParticipationScatter />
-          </div>
+          <SvgScatter />
         </div>
-        <div className="flex flex-col gap-6">
-          <div className="border border-border-default rounded-sm overflow-hidden p-3 md:p-4 bg-white">
-            <p className="font-mono text-[9px] tracking-[0.12em] uppercase text-slate mb-2">
-              Crecimiento del PH vs. % PH 2022
-            </p>
-            <SvgScatter />
-          </div>
-          <CorrelationGrid />
-        </div>
+        <CorrelationGrid />
       </div>
     </SectionNarrative>
   );

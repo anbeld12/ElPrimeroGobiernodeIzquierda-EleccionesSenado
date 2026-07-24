@@ -5,6 +5,7 @@ import { useFilters, MapLayer } from "../../../context/FilterContext";
 import { LorenzCurve } from "../charts/LorenzCurve";
 import { GiniTable } from "../charts/GiniTable";
 import { BarrasIzquierda } from "../charts/BarrasIzquierda";
+import { ParticipationScatter } from "../charts/ParticipationScatter";
 
 type TabId = "bloques" | "partidos" | "pacto" | "concentracion" | "izquierda" | "participacion";
 
@@ -153,7 +154,7 @@ export function MapaInteractivoSection() {
         </div>
 
         <div className="pl-0 md:pl-12 mb-1">
-          <p className="text-xs md:text-[13px] text-slate leading-[1.7] max-w-[680px]">
+          <p className="text-xs md:text-[13px] text-slate leading-[1.7] max-w-[900px]">
             {current.entrada}
           </p>
         </div>
@@ -251,6 +252,15 @@ export function MapaInteractivoSection() {
               <BarrasIzquierda />
             </div>
           </div>
+        ) : tab === "participacion" ? (
+          <div className="pl-0 md:pl-12 flex flex-col gap-8">
+            <div className="h-[500px] md:h-[600px] border border-border-default rounded-sm overflow-hidden">
+              <MapaTerritorial layer="participacion" hideControls showLegend />
+            </div>
+            <div className="border border-border-default rounded-sm overflow-hidden p-3 md:p-4 bg-white">
+              <ParticipationScatter />
+            </div>
+          </div>
         ) : (
           <div className="pl-0 md:pl-12">
             <div className="h-[500px] md:h-[600px] border border-border-default rounded-sm overflow-hidden">
@@ -260,7 +270,7 @@ export function MapaInteractivoSection() {
         )}
 
         <div className="pl-0 md:pl-12 mt-8">
-          <div className="text-xs md:text-[13px] text-slate leading-[1.8] max-w-[680px]">
+          <div className="text-xs md:text-[13px] text-slate leading-[1.8] max-w-[900px]">
             {current.analisis}
           </div>
           {current.pie && (

@@ -19,7 +19,7 @@ export function ComposicionSection() {
             Primera fuerza, pero sin mayorías
           </h2>
         </div>
-        <p className="text-xs md:text-[13px] text-slate mb-8 pl-0 md:pl-12 leading-[1.7] max-w-[680px]">
+        <p className="text-xs md:text-[13px] text-slate mb-8 pl-0 md:pl-12 leading-[1.7] max-w-[900px]">
           El Pacto Histórico encabeza el Senado con 25 de las 103 curules. Ningún partido se acerca. Y sin embargo, no ostenta mayoría propia.
         </p>
 
@@ -199,7 +199,7 @@ export function ComposicionSection() {
         )}
 
         <div className="pl-0 md:pl-12 mt-10">
-          <div className="text-xs md:text-[13px] text-slate leading-[1.8] max-w-[680px]">
+          <div className="text-xs md:text-[13px] text-slate leading-[1.8] max-w-[900px]">
             La foto institucional esconde la verdadera correlación de fuerzas. Sumadas, las bancadas de derecha y centroderecha (Centro Democrático, Conservador, Cambio Radical, Salvación Nacional) superan ampliamente a la oposición, mientras el bloque bisagra (Liberal, La U, &iexcl;Ahora Colombia!) queda como árbitro de cada votación. Ser la primera minoría en un Congreso fragmentado significa tener la vocería.
           </div>
         </div>

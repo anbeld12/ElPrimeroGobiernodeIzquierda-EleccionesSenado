@@ -2,7 +2,6 @@ import { SectionNum } from "../ui/SectionNum";
 import { ParticipationScatter } from "../charts/ParticipationScatter";
 import { ParticipationBars } from "../charts/ParticipationBars";
 import { GiniTable } from "../charts/GiniTable";
-import { LorenzCurve } from "../charts/LorenzCurve";
 
 export function MovilizacionSection() {
   return (
@@ -19,9 +18,6 @@ export function MovilizacionSection() {
 
       <div className="pl-0 md:pl-12 grid grid-cols-1 lg:grid-cols-[7fr_5fr] gap-8 lg:gap-12">
         <div>
-          <p className="font-mono text-[9px] tracking-[0.12em] uppercase text-slate mb-2">
-            Participación electoral por municipio — Senado 2026
-          </p>
           <ParticipationScatter />
         </div>
 
@@ -33,10 +29,6 @@ export function MovilizacionSection() {
           </div>
 
           <GiniTable />
-
-          <div className="p-4 border border-border-default rounded-sm bg-white">
-            <LorenzCurve />
-          </div>
         </div>
       </div>
     </section>
