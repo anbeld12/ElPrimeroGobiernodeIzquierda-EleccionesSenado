@@ -22,9 +22,11 @@ export function HeroSection() {
             Análisis territorial de los comicios del 8 de marzo de 2026 frente al balance histórico de 2022: un Congreso fragmentado ante la victoria de la derecha en el Ejecutivo. Datos validados por la Registraduría Nacional del Estado Civil y el Consejo Nacional Electoral.
           </p>
           <div className="flex flex-wrap gap-x-5 gap-y-1 text-[11px] text-slate font-mono">
+            <span>Andr&eacute;s Felipe Barreto Farf&aacute;n &middot; Angel David Beltr&aacute;n Garc&iacute;a</span>
+            <span className="hidden sm:inline text-border-default">|</span>
             <span>08 MAR 2026</span>
             <span className="hidden sm:inline text-border-default">|</span>
-            <span>Escrutinio Definitivo · 99.997% de coincidencia matemática</span>
+            <span>Escrutinio Definitivo &middot; 99.997% de coincidencia matem&aacute;tica</span>
           </div>
         </div>
         <div className="flex flex-col gap-3">
