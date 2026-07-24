@@ -11,7 +11,7 @@ export function ConclusionSection() {
           </h2>
         </div>
 
-        <div className="pl-0 md:pl-12 mt-8 max-w-[700px]">
+        <div className="pl-0 md:pl-12 mt-8 max-w-[900px]">
           <p className="text-sm md:text-[15px] leading-[1.8] text-slate mb-6">
             El 8 de marzo de 2026 la izquierda colombiana obtuvo, a la vez, su mejor resultado legislativo en la historia y la prueba m&aacute;s clara de sus l&iacute;mites. El Pacto Hist&oacute;rico se convirti&oacute; en la primera fuerza del Senado con 4,4 millones de votos y 25 curules: ning&uacute;n partido se le acerc&oacute;. Y, sin embargo, no gobierna el Congreso, no eligi&oacute; presidente y no re&uacute;ne mayor&iacute;a propia. Los datos de este recorrido explican por qu&eacute;: es el resultado de tres fuerzas que operaron al mismo tiempo.
           </p>
