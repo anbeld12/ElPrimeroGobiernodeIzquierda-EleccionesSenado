@@ -3,8 +3,8 @@ import { SectionNum } from "../ui/SectionNum";
 
 const camps = [
   { label: "Bancada de Oposición", seats: 28, detail: "PH (25) + Indígenas (2) + Estatuto Oposición (1)", note: "Liderada por Iván Cepeda Castro", color: C.ph, bg: "rgba(109,40,217,0.04)" },
-  { label: "Bloque Bisagra / Independiente", seats: 27, detail: "Liberal (13) + La U (9) + ¡Ahora Colombia! (5)", note: "Árbitro de la gobernabilidad", color: C.cambio, bg: "rgba(15,118,110,0.04)" },
-  { label: "Bancada Afín al Gobierno", seats: 48, detail: "CD (17) + PC (10) + CR–ALMA (7) + SN (4) + Alianza por Colombia (10)", note: "De la Espriella — sin mayoría absoluta (52 requeridas)", color: C.cd, bg: "rgba(153,27,27,0.04)" },
+  { label: "Bloque Bisagra / Independiente", seats: 24, detail: "Liberal (13) + Conservador (10) + Dignidad (1)", note: "Árbitro de la gobernabilidad", color: C.alianza, bg: "rgba(2,132,199,0.04)" },
+  { label: "Bancada Afín al Gobierno", seats: 41, detail: "CD (17) + CR (7) + La U (9) + SN (4) + MIRA (3) + NL (1)", note: "De la Espriella — sin mayoría absoluta (52 requeridas)", color: C.cd, bg: "rgba(153,27,27,0.04)" },
 ];
 
 export function GobernabilidadSection() {

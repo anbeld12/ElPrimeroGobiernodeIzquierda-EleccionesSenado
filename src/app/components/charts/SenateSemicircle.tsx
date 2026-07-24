@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { C } from "../../constants";
 import { useFilters } from "../../../context/FilterContext";
 import { useIsMobile } from "../ui/use-mobile";
@@ -32,6 +32,19 @@ export function SenateSemicircle({ data, spectrum, totalSeats, label }: Props) {
     votes: number;
     pct: string;
   } | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setIsVisible(true); obs.disconnect(); } },
+      { threshold: 0.2 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
 
   const partyNameByColor = useMemo(() => {
     const map: Record<string, string> = {};
@@ -41,11 +54,16 @@ export function SenateSemicircle({ data, spectrum, totalSeats, label }: Props) {
 
   const cx = 300;
   const cy = 265;
-  const ARCS = [
+  const BASE_ARCS = [
     { r: 140, cap: 31 },
     { r: 175, cap: 36 },
     { r: 210, cap: 36 },
   ];
+  const factor = Math.max(0.5, totalSeats / 103);
+  const ARCS = BASE_ARCS.map((a) => ({
+    r: a.r,
+    cap: Math.round(a.cap * factor),
+  }));
 
   const allSeats: { color: string; party: string }[] = [];
   spectrum.forEach(({ color, seats }) => {
@@ -83,8 +101,8 @@ export function SenateSemicircle({ data, spectrum, totalSeats, label }: Props) {
   };
 
   return (
-    <div className="relative select-none">
-      <svg viewBox="0 0 600 295" className="w-full max-w-[560px] block">
+    <div ref={ref} className="relative select-none">
+      <svg viewBox="0 0 600 350" className="w-full max-w-[560px] block">
         {ARCS.map(({ r }) => (
           <path
             key={r}
@@ -122,20 +140,21 @@ export function SenateSemicircle({ data, spectrum, totalSeats, label }: Props) {
             <circle
               cx={d.x}
               cy={d.y}
-              r={5.6}
+              r={isVisible ? 5.6 : 0}
               fill={d.color}
               pointerEvents="none"
               opacity={
                 highlightedParty && d.party !== highlightedParty
                   ? 0.25
-                  : 0.9
+                  : isVisible ? 0.9 : 0
               }
+              style={{ transitionDelay: `${i * 8}ms`, transitionDuration: "500ms", transitionProperty: "opacity, r", transitionTimingFunction: "ease-out" }}
             />
           </g>
         ))}
         <text
           x={cx - 210}
-          y={cy + 20}
+          y={cy + 28}
           textAnchor="middle"
           fontSize="8"
           fontFamily="Roboto Mono, monospace"
@@ -146,7 +165,7 @@ export function SenateSemicircle({ data, spectrum, totalSeats, label }: Props) {
         </text>
         <text
           x={cx + 210}
-          y={cy + 20}
+          y={cy + 28}
           textAnchor="middle"
           fontSize="8"
           fontFamily="Roboto Mono, monospace"
@@ -157,7 +176,7 @@ export function SenateSemicircle({ data, spectrum, totalSeats, label }: Props) {
         </text>
         <text
           x={cx}
-          y={cy + 20}
+          y={cy + 28}
           textAnchor="middle"
           fontSize="15"
           fontFamily="Roboto Mono, monospace"
@@ -168,7 +187,7 @@ export function SenateSemicircle({ data, spectrum, totalSeats, label }: Props) {
         </text>
         <text
           x={cx}
-          y={cy + 34}
+          y={cy + 42}
           textAnchor="middle"
           fontSize="9"
           fontFamily="Inter, sans-serif"

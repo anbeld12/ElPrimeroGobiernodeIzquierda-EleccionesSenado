@@ -26,6 +26,12 @@ export const COLORES_PARTIDO: Record<string, string> = {
   Otros: "#d5d8dc",
 };
 
+export const COLORES_IZQUIERDA: Record<string, string> = {
+  "Pacto Histórico": "#6c3483",
+  "Frente Amplio": "#e91e63",
+  "Fuerza Ciudadana": "#f1c40f",
+};
+
 const SIN_DATO = "#eeeeee";
 
 function hexToRgb(hex: string): [number, number, number] {
@@ -67,7 +73,7 @@ export function getFillColor(capa: string, props: any): string {
       return COLORES_PARTIDO[props[key]] || SIN_DATO;
     }
     case "izq_2026":
-      return COLORES_PARTIDO[props.izq_2026] || SIN_DATO;
+      return COLORES_IZQUIERDA[props.izq_2026] || COLORES_PARTIDO[props.izq_2026] || SIN_DATO;
     case "pct_pacto_2026":
       return escPct(props.pct_pacto_2026);
     case "delta_pp":

@@ -8,6 +8,7 @@ import { ComposicionSection } from "./components/sections/ComposicionSection";
 import { MapaInteractivoSection } from "./components/sections/MapaInteractivoSection";
 import { ScatterPactoSection } from "./components/sections/ScatterPactoSection";
 import { CorrelacionesSection } from "./components/sections/CorrelacionesSection";
+import { MovilizacionSection } from "./components/sections/MovilizacionSection";
 import { GobernabilidadSection } from "./components/sections/GobernabilidadSection";
 import { Footer } from "./components/sections/Footer";
 import { Divider } from "./components/ui/Divider";
@@ -59,6 +60,16 @@ export default function App() {
           <Divider />
 
           <Reveal delay={100}><CorrelacionesSection /></Reveal>
+          <Divider />
+
+          <Reveal delay={100}>
+            <TransitionText>
+              La participaci&oacute;n electoral revela contrastes territoriales que ayudan a entender qui&eacute;n vota y d&oacute;nde. La siguiente secci&oacute;n analiza la abstenci&oacute;n y sus implicaciones.
+            </TransitionText>
+          </Reveal>
+          <Divider />
+
+          <Reveal delay={100}><MovilizacionSection /></Reveal>
           <Divider />
 
           <Reveal delay={100}>

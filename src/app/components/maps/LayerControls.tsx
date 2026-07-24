@@ -2,6 +2,7 @@ import { useFilters, MapLayer } from "../../../context/FilterContext";
 import {
   COLORES_BLOQUE,
   COLORES_PARTIDO,
+  COLORES_IZQUIERDA,
   PAL_PCT,
   PAL_DELTA,
   PAL_PART,
@@ -119,7 +120,7 @@ function Legend({
     );
   }
 
-  const paleta = capa.startsWith("partido") || capa === "izq_2026" ? COLORES_PARTIDO : COLORES_BLOQUE;
+  const paleta = capa === "izq_2026" ? COLORES_IZQUIERDA : capa.startsWith("partido") ? COLORES_PARTIDO : COLORES_BLOQUE;
   return (
     <div>
       <b className="text-xs">{title}</b>

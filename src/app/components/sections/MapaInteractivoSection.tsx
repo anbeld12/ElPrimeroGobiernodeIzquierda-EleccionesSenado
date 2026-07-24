@@ -225,7 +225,7 @@ export function MapaInteractivoSection() {
         {tab === "concentracion" ? (
           <div className="pl-0 md:pl-12 grid grid-cols-1 lg:grid-cols-[7fr_5fr] gap-8 lg:gap-12">
             <div>
-              <div className="h-[400px] md:h-[520px] border border-border-default rounded-sm overflow-hidden">
+              <div className="h-[500px] md:h-[600px] border border-border-default rounded-sm overflow-hidden">
                 <MapaTerritorial layer="concentracion" hideControls />
               </div>
               <p className="font-mono text-[10px] text-slate/50 mt-1.5 text-right">
@@ -240,8 +240,8 @@ export function MapaInteractivoSection() {
             </div>
           </div>
         ) : tab === "izquierda" ? (
-          <div className="pl-0 md:pl-12 grid grid-cols-1 lg:grid-cols-[6fr_6fr] gap-8 lg:gap-12">
-            <div className="h-[400px] md:h-[520px] border border-border-default rounded-sm overflow-hidden">
+          <div className="pl-0 md:pl-12 flex flex-col gap-8">
+            <div className="h-[500px] md:h-[600px] border border-border-default rounded-sm overflow-hidden">
               <MapaTerritorial layer="izquierda" hideControls showLegend />
             </div>
             <div className="border border-border-default rounded-sm overflow-hidden p-4 md:p-6 bg-white">
@@ -253,7 +253,7 @@ export function MapaInteractivoSection() {
           </div>
         ) : (
           <div className="pl-0 md:pl-12">
-            <div className="h-[400px] md:h-[520px] border border-border-default rounded-sm overflow-hidden">
+            <div className="h-[500px] md:h-[600px] border border-border-default rounded-sm overflow-hidden">
               <MapaTerritorial layer={effectiveLayer} hideControls showLegend />
             </div>
           </div>

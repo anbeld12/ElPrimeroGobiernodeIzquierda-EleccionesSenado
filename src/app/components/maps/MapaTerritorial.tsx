@@ -123,7 +123,7 @@ export function MapaTerritorial({ layer, hideControls, showLegend }: MapaProps) 
         zoom={6}
         className="h-full w-full"
         scrollWheelZoom={true}
-        maxBounds={[[-5.5, -82], [16, -66]] as [[number, number], [number, number]]}
+        maxBounds={[[-5.5, -84], [16, -64]] as [[number, number], [number, number]]}
         maxBoundsViscosity={1.0}
         minZoom={5}
         maxZoom={12}

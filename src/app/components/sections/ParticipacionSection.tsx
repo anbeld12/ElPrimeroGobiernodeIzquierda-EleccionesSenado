@@ -22,7 +22,7 @@ export function ParticipacionSection() {
       pie="Numerador: todos los votos depositados para Senado (válidos, en blanco, nulos y no marcados). Denominador: censo electoral municipal (Divipole 2026)."
     >
       <div className="grid grid-cols-1 lg:grid-cols-[7fr_5fr] gap-8 lg:gap-12">
-        <div className="h-[400px] md:h-[520px] border border-border-default rounded-sm overflow-hidden">
+        <div className="h-[500px] md:h-[600px] border border-border-default rounded-sm overflow-hidden">
           <MapaTerritorial layer="participacion" hideControls />
         </div>
         <div>

@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useFilters } from "../../../context/FilterContext";
+import { useMunicipiosData } from "../../../context/MunicipiosContext";
 import {
   COLORES_BLOQUE,
   COLORES_PARTIDO,
+  COLORES_IZQUIERDA,
   PAL_PCT,
   PAL_DELTA,
   PAL_PART,
@@ -85,12 +87,23 @@ function LegendCategoricaContent({
   onToggle: (v: string) => void;
   onClear: () => void;
 }) {
-  const paleta = capa.startsWith("partido") || capa === "izq_2026" ? COLORES_PARTIDO : COLORES_BLOQUE;
+  const paleta = capa === "izq_2026" ? COLORES_IZQUIERDA : capa.startsWith("partido") ? COLORES_PARTIDO : COLORES_BLOQUE;
+  const { features } = useMunicipiosData();
+
+  const municipioCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    features.forEach((f: any) => {
+      const val = f.properties[capa];
+      if (val) counts[val] = (counts[val] || 0) + 1;
+    });
+    return counts;
+  }, [features, capa]);
 
   return (
     <div className="flex flex-col gap-1">
       {Object.entries(paleta).map(([v, color]) => {
         const active = filterCategory === v;
+        const count = municipioCounts[v] ?? 0;
         return (
           <button
             key={v}
@@ -103,7 +116,7 @@ function LegendCategoricaContent({
               className="w-3 h-3 rounded-sm shrink-0"
               style={{ backgroundColor: color }}
             />
-            <span className="truncate">{v}</span>
+            <span className="truncate">{v} ({count})</span>
             {active && <span className="ml-auto text-[9px] text-ph font-mono">&#10003;</span>}
           </button>
         );
