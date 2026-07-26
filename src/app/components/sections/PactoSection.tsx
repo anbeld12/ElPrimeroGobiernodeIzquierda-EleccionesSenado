@@ -8,7 +8,7 @@ export function PactoSection() {
         <div className="flex items-baseline mb-1.5">
           <SectionNum n="03" />
           <h2 className="font-editorial text-xl md:text-[26px] font-medium text-ink">
-            Desempeño y Consolidación del Pacto Histórico: 2022 vs. 2026
+            Desempeño y consolidación del Pacto Histórico: 2022 vs. 2026
           </h2>
         </div>
         <p className="text-xs md:text-[13px] text-slate mb-10 pl-0 md:pl-12">

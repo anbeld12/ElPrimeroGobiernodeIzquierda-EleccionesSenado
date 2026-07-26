@@ -10,7 +10,7 @@ export function ColapsoSection() {
       <div className="flex items-baseline mb-1.5">
         <SectionNum n="05" />
         <h2 className="font-editorial text-xl md:text-[26px] font-medium text-ink">
-          El Colapso del Progresismo Disidente y la Pérdida del Umbral
+          El colapso del progresismo disidente y la pérdida del umbral
         </h2>
       </div>
       <p className="text-xs md:text-[13px] text-slate mb-10 pl-0 md:pl-12">

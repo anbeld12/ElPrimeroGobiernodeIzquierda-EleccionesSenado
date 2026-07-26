@@ -9,7 +9,7 @@ export function MovilizacionSection() {
       <div className="flex items-baseline mb-1.5">
         <SectionNum n="05" />
         <h2 className="font-editorial text-xl md:text-[26px] font-medium text-ink">
-          La Paradoja de la Movilización: Abstención y Concentración Local
+          La paradoja de la movilización: abstención y concentración local
         </h2>
       </div>
       <p className="text-xs md:text-[13px] text-slate mb-10 pl-0 md:pl-12">

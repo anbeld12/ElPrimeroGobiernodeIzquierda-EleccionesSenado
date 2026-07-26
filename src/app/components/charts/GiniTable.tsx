@@ -6,7 +6,7 @@ export function GiniTable() {
     <div className="border border-border-default rounded-sm overflow-hidden">
       <div className="px-3 md:px-4 py-[10px] border-b border-border-default bg-soft">
         <p className="font-mono text-[9px] tracking-[0.12em] uppercase text-slate">
-          Índice de Gini — Concentración territorial del voto
+          Índice de Gini — concentración territorial del voto
         </p>
       </div>
       <div className="table-responsive">

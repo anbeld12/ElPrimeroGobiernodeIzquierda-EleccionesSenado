@@ -46,7 +46,7 @@ export function LorenzCurve() {
     <div style={{ userSelect: "none" }}>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginBottom: 12 }}>
         <span className="font-mono text-[9px] tracking-[0.12em] uppercase text-slate">
-          Curva de Lorenz — Concentración territorial del voto
+          Curva de Lorenz — concentración territorial del voto
         </span>
       </div>
       <ResponsiveContainer width="100%" height={220}>

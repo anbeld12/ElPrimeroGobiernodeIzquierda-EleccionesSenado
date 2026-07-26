@@ -10,7 +10,7 @@ export function ComparisonBars() {
     <div className="border border-border-default rounded-sm overflow-hidden mt-6">
       <div className="px-3 md:px-4 py-[10px] border-b border-border-default bg-soft">
         <p className="font-mono text-[9px] tracking-[0.12em] uppercase text-slate">
-          Comparativa: Izquierda Alternativa 2022 vs. 2026
+          Comparativa: izquierda alternativa 2022 vs. 2026
         </p>
       </div>
       <div className="p-4 md:p-[16px_16px_20px]">

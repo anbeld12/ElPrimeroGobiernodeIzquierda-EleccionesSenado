@@ -7,7 +7,7 @@ export function ConclusionSection() {
         <div className="flex items-baseline mb-1.5">
           <SectionNum n="07" />
           <h2 className="font-editorial text-xl md:text-[26px] font-medium text-ink">
-            La Victoria que No Alcanz&oacute;
+            La victoria que no alcanz&oacute;
           </h2>
         </div>
 

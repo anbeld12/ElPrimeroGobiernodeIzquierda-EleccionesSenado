@@ -16,7 +16,7 @@ export function HeroSection() {
             ))}
           </div>
           <h1 className="font-editorial text-[28px] md:text-[34px] lg:text-[42px] font-medium leading-[1.2] tracking-[-0.01em] text-ink mb-5">
-            La Fragmentación del Mandato: El Ascenso del Pacto Histórico y la Resistencia Conservadora en el Congreso 2026
+            La fragmentación del mandato: el ascenso del Pacto Histórico y la resistencia conservadora en el Congreso 2026
           </h1>
           <p className="text-sm md:text-[15px] leading-[1.7] text-slate max-w-[540px] mb-7">
             Análisis territorial de los comicios del 8 de marzo de 2026 frente al balance histórico de 2022: un Congreso fragmentado ante la victoria de la derecha en el Ejecutivo. Datos validados por la Registraduría Nacional del Estado Civil y el Consejo Nacional Electoral.
