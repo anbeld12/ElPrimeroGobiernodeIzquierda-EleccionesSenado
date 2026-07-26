@@ -11,6 +11,7 @@ import { CorrelacionesSection } from "./components/sections/CorrelacionesSection
 import { MovilizacionSection } from "./components/sections/MovilizacionSection";
 import { GobernabilidadSection } from "./components/sections/GobernabilidadSection";
 import { ConclusionSection } from "./components/sections/ConclusionSection";
+import { LimitacionesSection } from "./components/sections/LimitacionesSection";
 import { Footer } from "./components/sections/Footer";
 import { Divider } from "./components/ui/Divider";
 import { Reveal } from "./components/ui/Reveal";
@@ -84,6 +85,9 @@ export default function App() {
           <Divider />
 
           <Reveal delay={100}><ConclusionSection /></Reveal>
+          <Divider />
+
+          <Reveal delay={100}><LimitacionesSection /></Reveal>
           <Divider />
 
           <Reveal delay={150}><Footer /></Reveal>
